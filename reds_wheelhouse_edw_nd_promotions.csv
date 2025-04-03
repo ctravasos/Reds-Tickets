@@ -1,0 +1,767 @@
+EVENT_NAME,EVENT_TIME,EVENT_DAY,CATEGORY,CATEGORY_DETAIL,PROMOTION
+21REG0401,2021-04-01T16:10:00,Thursday,Historical Ceremony,Opening Day,Opening Day
+21REG0401,2021-04-01T16:10:00,Thursday,Historical Ceremony,,Reds Magnetic Schedule
+21REG0401,2021-04-01T16:10:00,Thursday,Theme Game,Opening Day,Opening Day
+21REG0401,2021-04-01T16:10:00,Thursday,Theme Game,,Reds Magnetic Schedule
+21REG0401,2021-04-01T16:10:00,Thursday,Kids/Family Event,Opening Day,Opening Day
+21REG0401,2021-04-01T16:10:00,Thursday,Kids/Family Event,,Reds Magnetic Schedule
+21REG0401,2021-04-01T16:10:00,Thursday,Day of Game Highlight,Opening Day,Opening Day
+21REG0401,2021-04-01T16:10:00,Thursday,Day of Game Highlight,,Reds Magnetic Schedule
+21REG0401,2021-04-01T16:10:00,Thursday,Concert,Opening Day,Opening Day
+21REG0401,2021-04-01T16:10:00,Thursday,Concert,,Reds Magnetic Schedule
+21REG0403,2021-04-03T16:10:00,Saturday,Hat,,Kids Opening Day
+21REG0403,2021-04-03T16:10:00,Saturday,Hat,,Kids Reds Cap
+21REG0404,2021-04-04T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0404,2021-04-04T13:10:00,Sunday,Misc. Giveaway,,Tucker Barnhart Fathead® Kids Giveaway
+21REG0405,2021-04-05T18:40:00,Monday,Misc. Giveaway,,Weekday Giveaway
+21REG0405,2021-04-05T18:40:00,Monday,Misc. Giveaway,,Reds Team Calendar
+21REG0406,2021-04-06T18:40:00,Tuesday,Misc. Giveaway,,Weekday Giveaway
+21REG0406,2021-04-06T18:40:00,Tuesday,Misc. Giveaway,,Reds Team Calendar
+21REG0407,2021-04-07T12:35:00,Wednesday,Misc. Giveaway,,Weekday Giveaway
+21REG0407,2021-04-07T12:35:00,Wednesday,Misc. Giveaway,,Reds Team Calendar
+21REG0416,2021-04-16T19:10:00,Friday,Misc. Giveaway,,Weekday Giveaway
+21REG0416,2021-04-16T19:10:00,Friday,Misc. Giveaway,,Jackie Robinson Baseball Card
+21REG0417,2021-04-17T16:10:00,Saturday,Theme Days,,Super Saturday
+21REG0417,2021-04-17T16:10:00,Saturday,Misc. Giveaway,,Eric Davis FUNKO POP!
+21REG0418,2021-04-18T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0418,2021-04-18T13:10:00,Sunday,Misc. Giveaway,,Amir Garrett Fathead® Kids Giveaway
+21REG0430,2021-04-30T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0430,2021-04-30T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0501,2021-05-01T16:10:00,Saturday,Theme Days,,Super Saturday
+21REG0501,2021-05-01T16:10:00,Saturday,Misc. Giveaway,,Reds Tote Bag
+21REG0502,2021-05-02T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0502,2021-05-02T13:10:00,Sunday,Misc. Giveaway,,Shogo Akiyama Fathead® Kids Giveaway
+21REG0505,2021-05-05T12:35:00,Wednesday,Misc. Giveaway,,Weekday Giveaway
+21REG0505,2021-05-05T12:35:00,Wednesday,Misc. Giveaway,,Reds Tote Bag
+21REG0517,2021-05-17T18:40:00,Monday,Misc. Giveaway,,Weekday Giveaway
+21REG0517,2021-05-17T18:40:00,Monday,Bobblehead,,Mike Moustakas Bobblehead
+21REG0521,2021-05-21T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0521,2021-05-21T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0522,2021-05-22T16:10:00,Saturday,Theme Days,,Super Saturday
+21REG0522,2021-05-22T16:10:00,Saturday,Bobblehead,,Mike Moustakas Bobblehead
+21REG0523,2021-05-23T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0523,2021-05-23T13:10:00,Sunday,Misc. Giveaway,,Team Baseball Card Set Kids Giveaway
+21REG0601,2021-06-01T19:10:00,Tuesday,Day of Game Highlight,,Jewish Community Night
+21REG0609,2021-06-09T19:10:00,Wednesday,Misc. Giveaway,,Weekday Giveaway
+21REG0609,2021-06-09T19:10:00,Wednesday,Bobblehead,,Shogo Akiyama Bobblehead
+21REG0610,2021-06-10T12:35:00,Thursday,Day of Game Highlight,,Business Day Specials
+21REG0610,2021-06-10T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+21REG0611,2021-06-11T19:10:00,Friday,Theme Game,,Pride Community Night
+21REG0611,2021-06-11T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0611,2021-06-11T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0612,2021-06-12T16:10:00,Saturday,Theme Days,,Super Saturday
+21REG0612,2021-06-12T16:10:00,Saturday,Bobblehead,,Shogo Akiyama Bobblehead
+21REG0613,2021-06-13T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0613,2021-06-13T13:10:00,Sunday,Misc. Giveaway,,Fathead® Kids Giveaway
+21REG0613,2021-06-13T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0624,2021-06-24T19:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+21REG0624,2021-06-24T19:10:00,Thursday,Misc. Giveaway,,Weekday Giveaway
+21REG0624,2021-06-24T19:10:00,Thursday,Bobblehead,,"""Queen City Sluggers"" Triple Bobblehead"
+21REG0625,2021-06-25T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0625,2021-06-25T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0626,2021-06-26T16:10:00,Saturday,Theme Days,,Super Saturday
+21REG0626,2021-06-26T16:10:00,Saturday,Bobblehead,,"""Queen City Sluggers"" Triple Bobblehead"
+21REG0627,2021-06-27T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0627,2021-06-27T13:10:00,Sunday,Misc. Giveaway,,Bee Plush Kids Giveaway
+21REG0627,2021-06-27T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0629,2021-06-29T19:10:00,Tuesday,Theme Game,,Cincinnati Zoo Ticket Package
+21REG0701,2021-07-01T19:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+21REG0702,2021-07-02T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0702,2021-07-02T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0703,2021-07-03T16:10:00,Saturday,Theme Days,,Super Saturday
+21REG0703,2021-07-03T16:10:00,Saturday,Apparel,,Patriotic T-Shirt
+21REG0704,2021-07-04T13:10:00,Sunday,Theme Days,,Military Appreciation Days
+21REG0704,2021-07-04T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0704,2021-07-04T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0704,2021-07-04T13:10:00,Sunday,Misc. Giveaway,,Fathead® Kids Giveaway
+21REG0716,2021-07-16T19:10:00,Friday,Day of Game Highlight,,African American Community Night
+21REG0716,2021-07-16T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0716,2021-07-16T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0717,2021-07-17T19:10:00,Saturday,Theme Days,,Super Saturday
+21REG0717,2021-07-17T19:10:00,Saturday,Misc. Giveaway,,MARVEL Wade Miley No-Hitter Poster
+21REG0718,2021-07-18T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0718,2021-07-18T13:10:00,Sunday,Figurine,,Luis Castillo Fathead® Kids Giveaway
+21REG0720,2021-07-20T19:10:00,Tuesday,Theme Game,,STAR WARS™ Ticket Package
+21REG0721,2021-07-21T12:35:00,Wednesday,Day of Game Highlight,,Business Day Specials
+21REG0723,2021-07-23T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0723,2021-07-23T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0723,2021-07-23T19:10:00,Friday,Day of Game Highlight,,Irish Community Night
+21REG0724,2021-07-24T19:10:00,Saturday,Theme Days,,Super Saturday
+21REG0724,2021-07-24T19:10:00,Saturday,Misc. Giveaway,,Reds Socks
+21REG0725,2021-07-25T13:10:00,Sunday,Misc. Giveaway,,Topps Card Day
+21REG0725,2021-07-25T13:10:00,Sunday,Misc. Giveaway,,Premium Topps Baseball Card
+21REG0725,2021-07-25T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0725,2021-07-25T13:10:00,Sunday,Day of Game Highlight,,Japanese American Community Day
+21REG0803,2021-08-03T19:10:00,Tuesday,Ticket Offer,,Senior Days
+21REG0803,2021-08-03T19:10:00,Tuesday,Theme Game,,Jerry Garcia Ticket Package
+21REG0804,2021-08-04T12:35:00,Wednesday,Day of Game Highlight,,Business Day Specials
+21REG0805,2021-08-05T19:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+21REG0805,2021-08-05T19:10:00,Thursday,Ticket Offer,,Senior Days
+21REG0805,2021-08-05T19:10:00,Thursday,Day of Game Highlight,,Bark in the Park
+21REG0806,2021-08-06T19:10:00,Friday,Theme Days,,Military Appreciation Days
+21REG0806,2021-08-06T19:10:00,Friday,Day of Game Highlight,,Fireworks Friday
+21REG0806,2021-08-06T19:10:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+21REG0807,2021-08-07T19:10:00,Saturday,Theme Days,,Super Saturday
+21REG0807,2021-08-07T19:10:00,Saturday,Bobblehead,Figurine,Gapper Bobble Belly
+21REG0808,2021-08-08T13:10:00,Sunday,Theme Days,,Joe Morgan Day
+21REG0808,2021-08-08T13:10:00,Sunday,Misc. Giveaway,,Joe Morgan #8 Baseball Cap
+21REG0808,2021-08-08T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0818,2021-08-18T12:35:00,Wednesday,Day of Game Highlight,,Business Day Specials
+21REG0819,2021-08-19T19:10:00,Thursday,Ticket Offer,,Senior Days
+21REG0819,2021-08-19T19:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+21REG0820,2021-08-20T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0820,2021-08-20T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0821,2021-08-21T18:40:00,Saturday,Theme Days,,Super Saturday
+21REG0821,2021-08-21T18:40:00,Saturday,Misc. Giveaway,,Marty Brennaman Pennant
+21REG0821,2021-08-21T18:40:00,Saturday,Concert,,"Ohio Lottery Post-Game Concert featuring ""I Love the '90s"""
+21REG0822,2021-08-22T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0822,2021-08-22T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0822,2021-08-22T13:10:00,Sunday,Kids/Family Event,,Jesse Winker Fathead® Kids Giveaway
+21REG0830,2021-08-30T18:40:00,Monday,Ticket Offer,,Senior Days
+21REG0901,2021-09-01T18:40:00,Wednesday,Ticket Offer,,Senior Days
+21REG0903,2021-09-03T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0903,2021-09-03T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0904,2021-09-04T19:10:00,Saturday,Theme Days,,Super Saturday
+21REG0904,2021-09-04T19:10:00,Saturday,Bobblehead,,Barry Larkin Dual Bobblehead
+21REG0905,2021-09-05T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0905,2021-09-05T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0905,2021-09-05T13:10:00,Sunday,Kids/Family Event,,Tyler Stephenson Fathead® Kids Giveaway
+21REG0917,2021-09-17T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0917,2021-09-17T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0917,2021-09-17T19:10:00,Friday,Theme Days,,Military Appreciation Days
+21REG0917,2021-09-17T19:10:00,Friday,Day of Game Highlight,,Oktoberfest Ticket Package: Theme Ticket Required
+21REG0918,2021-09-18T14:10:00,Saturday,Day of Game Highlight,,Oktoberfest Ticket Package: Theme Ticket Required
+21REG0918,2021-09-18T14:10:00,Saturday,Day of Game Highlight,,German Community Night
+21REG0918,2021-09-18T14:10:00,Saturday,Theme Days,,Super Saturday
+21REG0918,2021-09-18T14:10:00,Saturday,Misc. Giveaway,,Reds Can Cooler
+21REG0919,2021-09-19T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0919,2021-09-19T13:10:00,Sunday,Kids/Family Event,,Eugenio Suárez Fathead® Kids Giveaway
+21REG0919,2021-09-19T13:10:00,Sunday,Day of Game Highlight,,Oktoberfest Ticket Package: Theme Ticket Required
+21REG0919,2021-09-19T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0920,2021-09-20T18:40:00,Monday,Ticket Offer,,Senior Days
+21REG0921,2021-09-21T18:40:00,Tuesday,Ticket Offer,,Senior Days
+21REG0923,2021-09-23T18:40:00,Thursday,Ticket Offer,,Thirsty Thursdays
+21REG0923,2021-09-23T18:40:00,Thursday,Ticket Offer,,Senior Days
+21REG0924,2021-09-24T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+21REG0924,2021-09-24T19:10:00,Friday,Fireworks or Drone Show,,Post-Game Fireworks Show
+21REG0924,2021-09-24T19:10:00,Friday,Theme Game,,Fiesta Rojos: Hispanic Community Night
+21REG0924,2021-09-24T19:10:00,Friday,Misc. Giveaway,,Weekday Giveaway Roberto Clemente Baseball Card
+21REG0925,2021-09-25T19:10:00,Saturday,Theme Days,,Super Saturday
+21REG0925,2021-09-25T19:10:00,Saturday,Misc. Giveaway,,Reds Team Photo
+21REG0926,2021-09-26T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0926,2021-09-26T13:10:00,Sunday,Kids/Family Event,,Joey Votto Fathead® Kids Giveaway
+21REG0926,2021-09-26T13:10:00,Sunday,Kids/Family Days,,Family Sunday
+21REG0926,2021-09-26T13:10:00,Sunday,Theme Days,,Fan Appreciation Day
+22REG0412,2022-04-12T16:10:00,Tuesday,Day of Game Highlight,Opening Day,Opening Day
+22REG0412,2022-04-12T16:10:00,Tuesday,Day of Game Highlight,,Reds Magnetic Schedule & Car Magnet
+22REG0413,2022-04-13T12:35:00,Wednesday,Ticket Offer,,Senior Days
+22REG0413,2022-04-13T12:35:00,Wednesday,Theme Game,,Business Day Specials
+22REG0422,2022-04-22T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0422,2022-04-22T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0422,2022-04-22T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0422,2022-04-22T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0422,2022-04-22T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0422,2022-04-22T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0422,2022-04-22T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0422,2022-04-22T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0423,2022-04-23T16:10:00,Saturday,Hat,,Kids Opening Day
+22REG0423,2022-04-23T16:10:00,Saturday,Hat,,Kids Reds Cap
+22REG0423,2022-04-23T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0423,2022-04-23T16:10:00,Saturday,Concert,,Reds Calendar
+22REG0423,2022-04-23T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0423,2022-04-23T16:10:00,Saturday,Kids/Family Event,,Reds Calendar
+22REG0423,2022-04-23T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0423,2022-04-23T16:10:00,Saturday,Day of Game Highlight,,Reds Calendar
+22REG0423,2022-04-23T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0423,2022-04-23T16:10:00,Saturday,Historical Ceremony,,Reds Calendar
+22REG0424,2022-04-24T13:40:00,Sunday,Day of Game Highlight,,Run the Bases Days
+22REG0424,2022-04-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0424,2022-04-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0424,2022-04-24T13:40:00,Sunday,Kids/Family Event,,Kids Giveaway
+22REG0424,2022-04-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0424,2022-04-24T13:40:00,Sunday,Misc. Giveaway,,Kids Giveaway
+22REG0428,2022-04-28T12:35:00,Thursday,Theme Game,,Business Day Specials
+22REG0428,2022-04-28T12:35:00,Thursday,Ticket Offer,,Senior Days
+22REG0428,2022-04-28T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+22REG0507G2,2022-05-07T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0507G2,2022-05-07T18:40:00,Saturday,Concert,,STAR WARS™ Jedi Joey Bobblehead
+22REG0507G2,2022-05-07T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0507G2,2022-05-07T18:40:00,Saturday,Historical Ceremony,,STAR WARS™ Jedi Joey Bobblehead
+22REG0507G2,2022-05-07T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0507G2,2022-05-07T18:40:00,Saturday,Kids/Family Event,,STAR WARS™ Jedi Joey Bobblehead
+22REG0507G2,2022-05-07T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0507G2,2022-05-07T18:40:00,Saturday,Day of Game Highlight,,STAR WARS™ Jedi Joey Bobblehead
+22REG0508,2022-05-08T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0508,2022-05-08T13:40:00,Sunday,Misc. Giveaway,,Mother's Day Keychain Giveaway
+22REG0508,2022-05-08T13:40:00,Sunday,Misc. Giveaway,,Mother's Day Keychain Giveaway
+22REG0508,2022-05-08T13:40:00,Sunday,Misc. Giveaway,,Mother's Day Keychain Giveaway
+22REG0508,2022-05-08T13:40:00,Sunday,Misc. Giveaway,,Mother's Day Keychain Giveaway
+22REG0509,2022-05-09T18:40:00,Monday,Day of Game Highlight,,Bark in the Park
+22REG0510,2022-05-10T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0511,2022-05-11T12:35:00,Wednesday,Theme Game,,Business Day Specials
+22REG0511,2022-05-11T12:35:00,Wednesday,Ticket Offer,,Senior Days
+22REG0524,2022-05-24T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0526,2022-05-26T12:35:00,Thursday,Ticket Offer,,Senior Days
+22REG0526,2022-05-26T12:35:00,Thursday,Theme Game,,Business Day Specials
+22REG0526,2022-05-26T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+22REG0527,2022-05-27T18:40:00,Friday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+22REG0527,2022-05-27T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0527,2022-05-27T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0527,2022-05-27T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0527,2022-05-27T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0527,2022-05-27T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0527,2022-05-27T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0527,2022-05-27T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0527,2022-05-27T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0528,2022-05-28T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0528,2022-05-28T16:10:00,Saturday,Historical Ceremony,,Tyler Stephenson Bobblehead
+22REG0528,2022-05-28T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0528,2022-05-28T16:10:00,Saturday,Kids/Family Event,,Tyler Stephenson Bobblehead
+22REG0528,2022-05-28T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0528,2022-05-28T16:10:00,Saturday,Concert,,Tyler Stephenson Bobblehead
+22REG0528,2022-05-28T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0528,2022-05-28T16:10:00,Saturday,Day of Game Highlight,,Tyler Stephenson Bobblehead
+22REG0529,2022-05-29T11:35:00,Sunday,Theme Days,,Military Appreciation Days
+22REG0529,2022-05-29T11:35:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0529,2022-05-29T11:35:00,Sunday,Misc. Giveaway,,Kids Headband Giveaway
+22REG0529,2022-05-29T11:35:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0529,2022-05-29T11:35:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0602,2022-06-02T18:40:00,Thursday,Ticket Offer,,Thirsty Thursdays
+22REG0603,2022-06-03T18:40:00,Friday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+22REG0603,2022-06-03T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0603,2022-06-03T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0603,2022-06-03T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0603,2022-06-03T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0603,2022-06-03T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0603,2022-06-03T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0603,2022-06-03T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0603,2022-06-03T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0604,2022-06-04T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0604,2022-06-04T16:10:00,Saturday,Kids/Family Event,,Jonathan India Replica Jersey
+22REG0604,2022-06-04T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0604,2022-06-04T16:10:00,Saturday,Day of Game Highlight,,Jonathan India Replica Jersey
+22REG0604,2022-06-04T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0604,2022-06-04T16:10:00,Saturday,Concert,,Jonathan India Replica Jersey
+22REG0604,2022-06-04T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0604,2022-06-04T16:10:00,Saturday,Historical Ceremony,,Jonathan India Replica Jersey
+22REG0605,2022-06-05T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0605,2022-06-05T13:40:00,Sunday,Misc. Giveaway,,Hunter Greene Poster Giveaway
+22REG0605,2022-06-05T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0605,2022-06-05T13:40:00,Sunday,Kids/Family Event,,Hunter Greene Poster Giveaway
+22REG0605,2022-06-05T13:40:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0605,2022-06-05T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0606,2022-06-06T18:40:00,Monday,Theme Days,,Military Appreciation Days
+22REG0607,2022-06-07T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0608,2022-06-08T18:40:00,Wednesday,Day of Game Highlight,,Bark in the Park
+22REG0609,2022-06-09T12:35:00,Thursday,Ticket Offer,,Senior Days
+22REG0609,2022-06-09T12:35:00,Thursday,Theme Game,,Business Day Specials
+22REG0609,2022-06-09T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+22REG0617,2022-06-17T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0617,2022-06-17T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0617,2022-06-17T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0617,2022-06-17T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0617,2022-06-17T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0617,2022-06-17T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0617,2022-06-17T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0617,2022-06-17T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0617,2022-06-17T18:40:00,Friday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+22REG0618,2022-06-18T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0618,2022-06-18T16:10:00,Saturday,Cap,,Reds Floppy Hat
+22REG0618,2022-06-18T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0618,2022-06-18T16:10:00,Saturday,Cap,,Reds Floppy Hat
+22REG0618,2022-06-18T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0618,2022-06-18T16:10:00,Saturday,Cap,,Reds Floppy Hat
+22REG0618,2022-06-18T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0618,2022-06-18T16:10:00,Saturday,Cap,,Reds Floppy Hat
+22REG0619,2022-06-19T13:40:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0619,2022-06-19T13:40:00,Sunday,Misc. Giveaway,,Eric Davis Baseball Card
+22REG0619,2022-06-19T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0619,2022-06-19T13:40:00,Sunday,Misc. Giveaway,,Father's Day Belt Giveaway
+22REG0619,2022-06-19T13:40:00,Sunday,Misc. Giveaway,,Father's Day Belt Giveaway
+22REG0619,2022-06-19T13:40:00,Sunday,Misc. Giveaway,,Father's Day Belt Giveaway
+22REG0619,2022-06-19T13:40:00,Sunday,Misc. Giveaway,,Father's Day Belt Giveaway
+22REG0621,2022-06-21T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0621,2022-06-21T18:40:00,Tuesday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+22REG0622,2022-06-22T18:40:00,Wednesday,Theme Days,,Pink Party
+22REG0623,2022-06-23T12:35:00,Thursday,Ticket Offer,,Senior Days
+22REG0623,2022-06-23T12:35:00,Thursday,Theme Game,,Business Day Specials
+22REG0623,2022-06-23T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+22REG0701,2022-07-01T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0701,2022-07-01T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0701,2022-07-01T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0701,2022-07-01T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0701,2022-07-01T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0701,2022-07-01T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0701,2022-07-01T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0701,2022-07-01T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0702,2022-07-02T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0702,2022-07-02T16:10:00,Saturday,Kids/Family Event,,"""The Cowboy"" Jeff Brantley Bobblehead"
+22REG0702,2022-07-02T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0702,2022-07-02T16:10:00,Saturday,Day of Game Highlight,,"""The Cowboy"" Jeff Brantley Bobblehead"
+22REG0702,2022-07-02T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0702,2022-07-02T16:10:00,Saturday,Concert,,"""The Cowboy"" Jeff Brantley Bobblehead"
+22REG0702,2022-07-02T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0702,2022-07-02T16:10:00,Saturday,Historical Ceremony,,"""The Cowboy"" Jeff Brantley Bobblehead"
+22REG0703,2022-07-03T13:40:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0703,2022-07-03T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0703,2022-07-03T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0703,2022-07-03T13:40:00,Sunday,Kids/Family Event,,Kids Giveaway
+22REG0703,2022-07-03T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0703,2022-07-03T13:40:00,Sunday,Day of Game Highlight,,Kids Giveaway
+22REG0703,2022-07-03T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0703,2022-07-03T13:40:00,Sunday,Misc. Giveaway,,Kids Giveaway
+22REG0704,2022-07-04T18:40:00,Monday,Theme Days,,Military Appreciation Days
+22REG0704,2022-07-04T18:40:00,Monday,Theme Days,,Independence Day
+22REG0704,2022-07-04T18:40:00,Monday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0704,2022-07-04T18:40:00,Monday,Theme Days,,Independence Day
+22REG0704,2022-07-04T18:40:00,Monday,Concert,,Post-Game Fireworks Show
+22REG0704,2022-07-04T18:40:00,Monday,Theme Days,,Independence Day
+22REG0704,2022-07-04T18:40:00,Monday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0704,2022-07-04T18:40:00,Monday,Theme Days,,Independence Day
+22REG0704,2022-07-04T18:40:00,Monday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0705,2022-07-05T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0708,2022-07-08T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0708,2022-07-08T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0708,2022-07-08T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0708,2022-07-08T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0708,2022-07-08T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0708,2022-07-08T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0708,2022-07-08T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0708,2022-07-08T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0709,2022-07-09T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0709,2022-07-09T16:10:00,Saturday,Concert,,Team Baseball Card Set
+22REG0709,2022-07-09T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0709,2022-07-09T16:10:00,Saturday,Day of Game Highlight,,Team Baseball Card Set
+22REG0709,2022-07-09T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0709,2022-07-09T16:10:00,Saturday,Kids/Family Event,,Team Baseball Card Set
+22REG0709,2022-07-09T16:10:00,Saturday,Theme Days,,Super Saturday
+22REG0709,2022-07-09T16:10:00,Saturday,Historical Ceremony,,Team Baseball Card Set
+22REG0709,2022-07-09T16:10:00,Saturday,Concert,,Ohio Lottery Post-Game Concert featuring O.A.R.
+22REG0710,2022-07-10T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0710,2022-07-10T13:40:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0710,2022-07-10T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0710,2022-07-10T13:40:00,Sunday,Kids/Family Event,,Joey Votto Poster Giveaway
+22REG0710,2022-07-10T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0710,2022-07-10T13:40:00,Sunday,Misc. Giveaway,,Joey Votto Poster Giveaway
+22REG0722,2022-07-22T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0722,2022-07-22T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0722,2022-07-22T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0722,2022-07-22T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0722,2022-07-22T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0722,2022-07-22T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0722,2022-07-22T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0722,2022-07-22T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0723,2022-07-23T18:40:00,Saturday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0723,2022-07-23T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0723,2022-07-23T18:40:00,Saturday,Day of Game Highlight,,Vintage 1960s-style Mr. Redlegs Bobblehead
+22REG0723,2022-07-23T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0723,2022-07-23T18:40:00,Saturday,Kids/Family Event,,Vintage 1960s-style Mr. Redlegs Bobblehead
+22REG0723,2022-07-23T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0723,2022-07-23T18:40:00,Saturday,Concert,,Vintage 1960s-style Mr. Redlegs Bobblehead
+22REG0723,2022-07-23T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0723,2022-07-23T18:40:00,Saturday,Historical Ceremony,,Vintage 1960s-style Mr. Redlegs Bobblehead
+22REG0724,2022-07-24T13:40:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0724,2022-07-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0724,2022-07-24T13:40:00,Sunday,Kids/Family Event,,Kids Giveaway
+22REG0724,2022-07-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0724,2022-07-24T13:40:00,Sunday,Day of Game Highlight,,Kids Giveaway
+22REG0724,2022-07-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0724,2022-07-24T13:40:00,Sunday,Concert,,Kids Giveaway
+22REG0724,2022-07-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0724,2022-07-24T13:40:00,Sunday,Historical Ceremony,,Kids Giveaway
+22REG0724,2022-07-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0726,2022-07-26T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0727,2022-07-27T18:40:00,Wednesday,Theme Days,,Dayton Day at the Reds
+22REG0728,2022-07-28T12:35:00,Thursday,Theme Game,,Business Day Specials
+22REG0728,2022-07-28T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+22REG0728,2022-07-28T12:35:00,Thursday,Ticket Offer,,Senior Days
+22REG0729,2022-07-29T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0729,2022-07-29T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0729,2022-07-29T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0729,2022-07-29T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0729,2022-07-29T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0729,2022-07-29T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0729,2022-07-29T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0729,2022-07-29T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0730,2022-07-30T18:40:00,Saturday,Concert,,"Ohio Lottery Post-Game Concert featuring Rev Run & DJ Ruckus, Big Boi and Montell Jordan"
+22REG0730,2022-07-30T18:40:00,Saturday,Concert,,"Ohio Lottery Post-Game Concert featuring Rev Run & DJ Ruckus, Big Boi and Montell Jordan"
+22REG0730,2022-07-30T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0730,2022-07-30T18:40:00,Saturday,Misc. Giveaway,,Reds Fanny Pack
+22REG0730,2022-07-30T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0730,2022-07-30T18:40:00,Saturday,Misc. Giveaway,,Reds Fanny Pack
+22REG0730,2022-07-30T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0730,2022-07-30T18:40:00,Saturday,Misc. Giveaway,,Reds Fanny Pack
+22REG0730,2022-07-30T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0730,2022-07-30T18:40:00,Saturday,Misc. Giveaway,,Reds Fanny Pack
+22REG0731,2022-07-31T13:40:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0731,2022-07-31T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0731,2022-07-31T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0731,2022-07-31T13:40:00,Sunday,Day of Game Highlight,,Kids Giveaway
+22REG0731,2022-07-31T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0731,2022-07-31T13:40:00,Sunday,Kids/Family Event,,Kids Giveaway
+22REG0731,2022-07-31T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0731,2022-07-31T13:40:00,Sunday,Misc. Giveaway,,Kids Giveaway
+22REG0731,2022-07-31T13:40:00,Sunday,Day of Game Highlight,,Run the Bases Days
+22REG0813,2022-08-13T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0813,2022-08-13T18:40:00,Saturday,Concert,,Reds Bag
+22REG0813,2022-08-13T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0813,2022-08-13T18:40:00,Saturday,Day of Game Highlight,,Reds Bag
+22REG0813,2022-08-13T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0813,2022-08-13T18:40:00,Saturday,Kids/Family Event,,Reds Bag
+22REG0813,2022-08-13T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0813,2022-08-13T18:40:00,Saturday,Historical Ceremony,,Reds Bag
+22REG0814,2022-08-14T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0814,2022-08-14T13:40:00,Sunday,Kids/Family Event,,Jonathan India Poster Giveaway
+22REG0814,2022-08-14T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0814,2022-08-14T13:40:00,Sunday,Misc. Giveaway,,Jonathan India Poster Giveaway
+22REG0814,2022-08-14T13:40:00,Sunday,Day of Game Highlight,,Run the Bases Days
+22REG0814,2022-08-14T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0814,2022-08-14T13:40:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0816,2022-08-16T18:40:00,Tuesday,Day of Game Highlight,,Bark in the Park
+22REG0816,2022-08-16T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0817,2022-08-17T12:35:00,Wednesday,Theme Game,,Business Day Specials
+22REG0817,2022-08-17T12:35:00,Wednesday,Ticket Offer,,Senior Days
+22REG0830,2022-08-30T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0902,2022-09-02T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0902,2022-09-02T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0902,2022-09-02T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0902,2022-09-02T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0902,2022-09-02T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0902,2022-09-02T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0902,2022-09-02T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0902,2022-09-02T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0902,2022-09-02T18:40:00,Friday,Theme Days,,Military Appreciation Days
+22REG0912,2022-09-12T18:40:00,Monday,Day of Game Highlight,,Bark in the Park
+22REG0913G1,2022-09-13T12:35:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0914,2022-09-14T12:35:00,Wednesday,Ticket Offer,,Senior Days
+22REG0914,2022-09-14T12:35:00,Wednesday,Theme Game,,Business Day Specials
+22REG0920,2022-09-20T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+22REG0922,2022-09-22T18:40:00,Thursday,Ticket Offer,,Thirsty Thursdays
+22REG0923,2022-09-23T18:40:00,Friday,Kids/Family Event,,Fireworks Friday
+22REG0923,2022-09-23T18:40:00,Friday,Kids/Family Event,,Post-Game Fireworks Show
+22REG0923,2022-09-23T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+22REG0923,2022-09-23T18:40:00,Friday,Day of Game Highlight,,Post-Game Fireworks Show
+22REG0923,2022-09-23T18:40:00,Friday,Concert,,Fireworks Friday
+22REG0923,2022-09-23T18:40:00,Friday,Concert,,Post-Game Fireworks Show
+22REG0923,2022-09-23T18:40:00,Friday,Historical Ceremony,,Fireworks Friday
+22REG0923,2022-09-23T18:40:00,Friday,Historical Ceremony,,Post-Game Fireworks Show
+22REG0924,2022-09-24T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0924,2022-09-24T18:40:00,Saturday,Kids/Family Event,,Reds Team Photo
+22REG0924,2022-09-24T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0924,2022-09-24T18:40:00,Saturday,Historical Ceremony,,Reds Team Photo
+22REG0924,2022-09-24T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0924,2022-09-24T18:40:00,Saturday,Day of Game Highlight,,Reds Team Photo
+22REG0924,2022-09-24T18:40:00,Saturday,Theme Days,,Super Saturday
+22REG0924,2022-09-24T18:40:00,Saturday,Concert,,Reds Team Photo
+22REG0925,2022-09-25T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0925,2022-09-25T13:40:00,Sunday,Historical Ceremony,,Kids Giveaway
+22REG0925,2022-09-25T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0925,2022-09-25T13:40:00,Sunday,Day of Game Highlight,,Kids Giveaway
+22REG0925,2022-09-25T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0925,2022-09-25T13:40:00,Sunday,Kids/Family Event,,Kids Giveaway
+22REG0925,2022-09-25T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0925,2022-09-25T13:40:00,Sunday,Concert,,Kids Giveaway
+22REG0925,2022-09-25T13:40:00,Sunday,Theme Game,,Summer Sundays Ticket Package
+22REG0925,2022-09-25T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+22REG0925,2022-09-25T13:40:00,Sunday,Theme Days,,Fan Appreciation Day
+22REG1004,2022-10-04T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0330,2023-03-30T16:10:00,Thursday,Day of Game Highlight,,2023 Magnetic Schedule/Car Magnet
+23REG0401,2023-04-01T16:10:00,Saturday,Misc. Giveaway,,Kids Reds Cap
+23REG0401,2023-04-01T16:10:00,Saturday,Day of Game Highlight,,Kids Opening Day
+23REG0402,2023-04-02T13:40:00,Sunday,Misc. Giveaway,,Reds Calendar
+23REG0402,2023-04-02T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0404,2023-04-04T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0413,2023-04-13T18:40:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0413,2023-04-13T18:40:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0414,2023-04-14T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0415,2023-04-15T16:10:00,Saturday,Misc. Giveaway,,Jackie Robinson Baseball Card
+23REG0415,2023-04-15T16:10:00,Saturday,Misc. Giveaway,,Great American Ball Park Replica
+23REG0416,2023-04-16T13:40:00,Sunday,Misc. Giveaway,,Kids Sticker Sheet
+23REG0416,2023-04-16T13:40:00,Sunday,Day of Game Highlight,,Run the Bases Days
+23REG0416,2023-04-16T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0418,2023-04-18T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0419,2023-04-19T12:35:00,Wednesday,Day of Game Highlight,,Business Day Specials
+23REG0419,2023-04-19T12:35:00,Wednesday,Ticket Offer,,Business Day Specials
+23REG0419,2023-04-19T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0419,2023-04-19T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0425,2023-04-25T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0426,2023-04-26T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0426,2023-04-26T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0426,2023-04-26T12:35:00,Wednesday,Day of Game Highlight,,Business Day Specials
+23REG0426,2023-04-26T12:35:00,Wednesday,Ticket Offer,,Business Day Specials
+23REG0505,2023-05-05T18:40:00,Friday,Theme Game,,STAR WARS™ Ticket Package
+23REG0505,2023-05-05T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0505,2023-05-05T18:40:00,Friday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+23REG0506,2023-05-06T18:40:00,Saturday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+23REG0506,2023-05-06T18:40:00,Saturday,Misc. Giveaway,,Johnny Bench Funko POP!
+23REG0507,2023-05-07T16:10:00,Sunday,Misc. Giveaway,,Kids Sticker Sheet
+23REG0507,2023-05-07T16:10:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0509,2023-05-09T18:40:00,Tuesday,Ticket Offer,,Bark in the Park
+23REG0509,2023-05-09T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0511,2023-05-11T12:35:00,Thursday,Day of Game Highlight,,Business Day Specials
+23REG0511,2023-05-11T12:35:00,Thursday,Ticket Offer,,Business Day Specials
+23REG0511,2023-05-11T12:35:00,Thursday,Ticket Offer,,Senior Days
+23REG0511,2023-05-11T12:35:00,Thursday,Ticket Offer,,Senior Days
+23REG0511,2023-05-11T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0511,2023-05-11T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0519,2023-05-19T18:40:00,Friday,Fireworks or Drone Show,,City Connect Debut Drone Show and Fireworks Friday
+23REG0519,2023-05-19T18:40:00,Friday,Day of Game Highlight,,City Connect Debut Drone Show and Fireworks Friday
+23REG0519,2023-05-19T18:40:00,Friday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+23REG0519,2023-05-19T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0520,2023-05-20T16:10:00,Saturday,Theme Days,,Military Appreciation Days
+23REG0520,2023-05-20T16:10:00,Saturday,Misc. Giveaway,,Reds Baseball Card Set
+23REG0521,2023-05-21T11:35:00,Sunday,Misc. Giveaway,,Reds City Connect Poster Series #1
+23REG0521,2023-05-21T11:35:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0523,2023-05-23T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0524,2023-05-24T18:40:00,Wednesday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+23REG0525,2023-05-25T12:35:00,Thursday,Ticket Offer,,Senior Days
+23REG0525,2023-05-25T12:35:00,Thursday,Ticket Offer,,Senior Days
+23REG0525,2023-05-25T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0525,2023-05-25T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0525,2023-05-25T12:35:00,Thursday,Day of Game Highlight,,Business Day Specials
+23REG0525,2023-05-25T12:35:00,Thursday,Ticket Offer,,Business Day Specials
+23REG0602,2023-06-02T17:10:00,Friday,Misc. Giveaway,Large Scale Post-Game Concert,Hunter Greene Baseball Card
+23REG0602,2023-06-02T17:10:00,Friday,Concert,Large Scale Post-Game Concert,Zac Brown Band Post-Game Benefit Concert 4-ALS
+23REG0602,2023-06-02T17:10:00,Friday,Day of Game Highlight,Large Scale Post-Game Concert,City Connect Fridays
+23REG0602,2023-06-02T17:10:00,Friday,Fireworks or Drone Show,Large Scale Post-Game Concert,Fireworks Friday
+23REG0603,2023-06-03T16:10:00,Saturday,Misc. Giveaway,,Joey Votto Bobblehead
+23REG0604,2023-06-04T13:40:00,Sunday,Misc. Giveaway,,Reds City Connect Poster Series #2
+23REG0604,2023-06-04T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0606,2023-06-06T19:10:00,Tuesday,Theme Days,,Military Appreciation Days
+23REG0606,2023-06-06T19:10:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0606,2023-06-06T19:10:00,Tuesday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+23REG0607,2023-06-07T19:10:00,Wednesday,Ticket Offer,,Bark in the Park
+23REG0608,2023-06-08T12:35:00,Thursday,Day of Game Highlight,,Business Day Specials
+23REG0608,2023-06-08T12:35:00,Thursday,Ticket Offer,,Business Day Specials
+23REG0608,2023-06-08T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0608,2023-06-08T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0608,2023-06-08T12:35:00,Thursday,Ticket Offer,,Senior Days
+23REG0608,2023-06-08T12:35:00,Thursday,Ticket Offer,,Senior Days
+23REG0619,2023-06-19T19:10:00,Monday,Misc. Giveaway,,Juneteenth Sticker Sheet:
+23REG0620,2023-06-20T19:10:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0620,2023-06-20T19:10:00,Tuesday,Day of Game Highlight,,Cincinnati Zoo Bald Eagle Flights
+23REG0620,2023-06-20T19:10:00,Tuesday,Theme Game,,Cincinnati Zoo Ticket Package
+23REG0621,2023-06-21T12:35:00,Wednesday,Day of Game Highlight,,Business Day Specials
+23REG0621,2023-06-21T12:35:00,Wednesday,Ticket Offer,,Business Day Specials
+23REG0621,2023-06-21T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0621,2023-06-21T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0623,2023-06-23T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0623,2023-06-23T18:40:00,Friday,Concert,,Post-Game Concert featuring QUINN XCII
+23REG0623,2023-06-23T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0624,2023-06-24T16:10:00,Saturday,Misc. Giveaway,,Hunter Greene Replica Jersey
+23REG0625,2023-06-25T13:40:00,Sunday,Misc. Giveaway,,Kids Sticker Sheet
+23REG0625,2023-06-25T13:40:00,Sunday,Day of Game Highlight,,Run the Bases Days
+23REG0625,2023-06-25T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0630,2023-06-30T17:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0630,2023-06-30T17:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0701,2023-07-01T13:40:00,Saturday,Misc. Giveaway,,Patriotic Floppy Hat
+23REG0701,2023-07-01T13:40:00,Saturday,Theme Days,,Military Appreciation Days
+23REG0702,2023-07-02T13:40:00,Sunday,Misc. Giveaway,,Reds City Connect Joey Votto
+23REG0702,2023-07-02T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0714,2023-07-14T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0714,2023-07-14T19:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0715,2023-07-15T19:10:00,Saturday,Day of Game Highlight,,Reds Hall of Fame Class of 2023 Induction Ceremony
+23REG0715,2023-07-15T19:10:00,Saturday,Misc. Giveaway,,Bronson Arroyo Bobblehead
+23REG0716,2023-07-16T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0716,2023-07-16T13:40:00,Sunday,Misc. Giveaway,,Kids Sticker Sheet
+23REG0720,2023-07-20T12:35:00,Thursday,Day of Game Highlight,,Business Day Specials
+23REG0720,2023-07-20T12:35:00,Thursday,Ticket Offer,,Business Day Specials
+23REG0720,2023-07-20T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0720,2023-07-20T12:35:00,Thursday,Ticket Offer,,Thirsty Thursdays
+23REG0720,2023-07-20T12:35:00,Thursday,Ticket Offer,,Senior Days
+23REG0720,2023-07-20T12:35:00,Thursday,Ticket Offer,,Senior Days
+23REG0721,2023-07-21T19:10:00,Friday,Theme Game,,Pride Night Ticket Package
+23REG0721,2023-07-21T19:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0721,2023-07-21T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0722,2023-07-22T16:10:00,Saturday,Misc. Giveaway,,Reds Hawaiian Shirt
+23REG0723,2023-07-23T13:40:00,Sunday,Misc. Giveaway,,Reds Baseball Cards
+23REG0723,2023-07-23T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0804,2023-08-04T18:40:00,Friday,Theme Game,,Jerry Garcia Ticket Package
+23REG0804,2023-08-04T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0804,2023-08-04T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0805,2023-08-05T16:10:00,Saturday,Misc. Giveaway,,Reds Crossbody Bag
+23REG0806,2023-08-06T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0806,2023-08-06T13:40:00,Sunday,Misc. Giveaway,,Reds City Connect Group Poster
+23REG0807,2023-08-07T18:40:00,Monday,Day of Game Highlight,,Bark in the Park
+23REG0807,2023-08-07T18:40:00,Monday,Ticket Offer,,Bark in the Park
+23REG0808,2023-08-08T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0809,2023-08-09T12:35:00,Wednesday,Day of Game Highlight,,Business Day Specials
+23REG0809,2023-08-09T12:35:00,Wednesday,Ticket Offer,,Business Day Specials
+23REG0809,2023-08-09T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0809,2023-08-09T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0815,2023-08-15T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0816,2023-08-16T18:40:00,Wednesday,Ticket Offer,,Senior Days
+23REG0816,2023-08-16T18:40:00,Wednesday,Ticket Offer,,Senior Days
+23REG0818,2023-08-18T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0818,2023-08-18T18:40:00,Friday,Concert,,Post-Game Concert featuring Yacht Rock Revue
+23REG0818,2023-08-18T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0818,2023-08-18T18:40:00,Friday,Theme Game,,Yacht Rock Music Night Ticket Package
+23REG0819,2023-08-19T18:40:00,Saturday,Bobblehead,,Jonathan India Bobblehead
+23REG0820,2023-08-20T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0820,2023-08-20T13:40:00,Sunday,Day of Game Highlight,,Run the Bases Days
+23REG0820,2023-08-20T13:40:00,Sunday,Misc. Giveaway,,Kids Sticker Sheet
+23REG0901,2023-09-01T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0901,2023-09-01T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0901,2023-09-01T18:40:00,Friday,Theme Days,,Military Appreciation Days
+23REG0902,2023-09-02T18:40:00,Saturday,Misc. Giveaway,,Reds Tote Bag
+23REG0903,2023-09-03T12:10:00,Sunday,Theme Game,,Sesame Street Ticket Package
+23REG0903,2023-09-03T12:10:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0903,2023-09-03T12:10:00,Sunday,Misc. Giveaway,,Reds City Connect Hunter Greene Poster
+23REG0905,2023-09-05T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0905,2023-09-05T18:40:00,Tuesday,Ticket Offer,,Senior Days
+23REG0905,2023-09-05T18:40:00,Tuesday,Ticket Offer,,Senior Days
+23REG0906,2023-09-06T18:40:00,Wednesday,Ticket Offer,,Bark in the Park
+23REG0908,2023-09-08T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0908,2023-09-08T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0909,2023-09-09T18:40:00,Saturday,Concert,,Post-Game Concert featuring Lady A
+23REG0909,2023-09-09T18:40:00,Saturday,Bobblehead,,Nick Lodolo Bobblehead
+23REG0910,2023-09-10T13:40:00,Sunday,Misc. Giveaway,,Kids Sticker Sheet
+23REG0910,2023-09-10T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+23REG0919,2023-09-19T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+23REG0920,2023-09-20T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0920,2023-09-20T12:35:00,Wednesday,Ticket Offer,,Senior Days
+23REG0920,2023-09-20T12:35:00,Wednesday,Day of Game Highlight,,Business Day Specials
+23REG0920,2023-09-20T12:35:00,Wednesday,Ticket Offer,,Business Day Specials
+23REG0922,2023-09-22T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+23REG0922,2023-09-22T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+23REG0923,2023-09-23T18:40:00,Saturday,Misc. Giveaway,,2023 Reds Team Photo
+23REG0924,2023-09-24T13:40:00,Sunday,Theme Days,,Fan Appreciation Day
+23REG0924,2023-09-24T13:40:00,Sunday,Misc. Giveaway,,Kids Sticker Sheet
+23REG0924,2023-09-24T13:40:00,Sunday,Kids/Family Days,,Family Sunday
+24REG0328,2024-03-28T16:10:00,Thursday,Misc. Giveaway,,2024 Magnetic Schedule/Car Magnet
+24REG0328,2024-03-28T16:10:00,Thursday,Theme Game,Opening Day,Opening Day
+24REG0330,2024-03-30T16:10:00,Saturday,Hat,,Kids Reds Cap
+24REG0330,2024-03-30T16:10:00,Saturday,Ticket Offer,,Family Discount Days
+24REG0330,2024-03-30T16:10:00,Saturday,Theme Game,,Kids Opening Day
+24REG0331,2024-03-31T13:40:00,Sunday,Misc. Giveaway,,Reds Sticker Sheet
+24REG0331,2024-03-31T13:40:00,Sunday,Ticket Offer,,Family Discount Days
+24REG0405,2024-04-05T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0406,2024-04-06T16:10:00,Saturday,Bobblehead,,Jake Fraley City Connect Bobblehead
+24REG0407,2024-04-07T13:40:00,Sunday,Ticket Offer,,Family Discount Days
+24REG0407,2024-04-07T13:40:00,Sunday,Bobblehead,,Matt McLain City Connect Bobblehead
+24REG0409,2024-04-09T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0419,2024-04-19T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+24REG0419,2024-04-19T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0420,2024-04-20T18:40:00,Saturday,Misc. Giveaway,,Reds Team Calendar
+24REG0421,2024-04-21T13:40:00,Sunday,Misc. Giveaway,,Reds Fleece Blanket
+24REG0421,2024-04-21T13:40:00,Sunday,Ticket Offer,,Family Discount Days
+24REG0423,2024-04-23T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0424,2024-04-24T18:40:00,Wednesday,Day of Game Highlight,,Bark in the Park
+24REG0425,2024-04-25T13:10:00,Thursday,Ticket Offer,,Senior Days
+24REG0425,2024-04-25T13:10:00,Thursday,Ticket Offer,,Business Day Specials
+24REG0425,2024-04-25T13:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+24REG0503,2024-05-03T18:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0503,2024-05-03T18:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+24REG0504,2024-05-04T18:40:00,Saturday,Misc. Giveaway,,STAR WARS™ Reds T-Shirt
+24REG0505,2024-05-05T16:10:00,Sunday,Bobblehead,,Alexis Díaz City Connect Bobblehead
+24REG0505,2024-05-05T16:10:00,Sunday,Day of Game Highlight,,Run the Bases Days
+24REG0507,2024-05-07T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0509,2024-05-09T13:10:00,Thursday,Ticket Offer,,Business Day Specials
+24REG0509,2024-05-09T13:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+24REG0509,2024-05-09T13:10:00,Thursday,Ticket Offer,,Senior Days
+24REG0521,2024-05-21T18:40:00,Tuesday,Ticket Offer,,Family Discount Days
+24REG0521,2024-05-21T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0522,2024-05-22T18:40:00,Wednesday,Day of Game Highlight,,Bark in the Park
+24REG0523,2024-05-23T13:10:00,Thursday,Ticket Offer,,Business Day Specials
+24REG0523,2024-05-23T13:10:00,Thursday,Ticket Offer,,Senior Days
+24REG0523,2024-05-23T13:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+24REG0524,2024-05-24T19:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0524,2024-05-24T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+24REG0525,2024-05-25T19:15:00,Saturday,Misc. Giveaway,,Reds Phone Wallet
+24REG0526,2024-05-26T12:10:00,Sunday,Misc. Giveaway,,Reds Team Baseball Card Set
+24REG0527,2024-05-27T16:10:00,Monday,Ticket Offer,,Senior Days
+24REG0527,2024-05-27T16:10:00,Monday,Theme Days,,Military Appreciation Days
+24REG0528,2024-05-28T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0529,2024-05-29T13:10:00,Wednesday,Ticket Offer,,Family Discount Days
+24REG0529,2024-05-29T13:10:00,Wednesday,Ticket Offer,,Senior Days
+24REG0529,2024-05-29T13:10:00,Wednesday,Ticket Offer,,Business Day Specials
+24REG0606,2024-06-06T19:10:00,Thursday,Theme Days,,Military Appreciation Days
+24REG0606,2024-06-06T19:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+24REG0607,2024-06-07T19:10:00,Friday,Theme Game,,Pride Night Ticket Package
+24REG0607,2024-06-07T19:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0607,2024-06-07T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+24REG0608,2024-06-08T16:10:00,Saturday,Misc. Giveaway,,Reds Sticker Sheet
+24REG0609,2024-06-09T13:40:00,Sunday,Misc. Giveaway,,City Connect Pennant
+24REG0609,2024-06-09T13:40:00,Sunday,Misc. Giveaway,,Hunter Greene Baseball Card
+24REG0611,2024-06-11T19:10:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0612,2024-06-12T19:10:00,Wednesday,Bobblehead,,Elly De La Cruz City Connect Bobblehead
+24REG0621,2024-06-21T19:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0621,2024-06-21T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+24REG0622,2024-06-22T16:10:00,Saturday,Misc. Giveaway,,Reds Poster
+24REG0623,2024-06-23T13:40:00,Sunday,Day of Game Highlight,,Run the Bases Days
+24REG0623,2024-06-23T13:40:00,Sunday,Misc. Giveaway,,Spencer Steer Home Replica Jersey
+24REG0624,2024-06-24T19:10:00,Monday,Ticket Offer,,Family Discount Days
+24REG0625,2024-06-25T19:10:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0625,2024-06-25T19:10:00,Tuesday,Ticket Offer,,Cincinnati Zoo Ticket Package
+24REG0626,2024-06-26T13:10:00,Wednesday,Ticket Offer,,Senior Days
+24REG0626,2024-06-26T13:10:00,Wednesday,Ticket Offer,,Business Day Specials
+24REG0705,2024-07-05T19:10:00,Friday,Fireworks or Drone Show,,Patriotic Drone Light Show and Fireworks Friday
+24REG0705,2024-07-05T19:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0706,2024-07-06T16:10:00,Saturday,Misc. Giveaway,,Reds Sticker Sheet
+24REG0707,2024-07-07T13:40:00,Sunday,Bobblehead,,Graham Ashcraft City Connect Bobblehead
+24REG0708,2024-07-08T19:10:00,Monday,Ticket Offer,,Family Discount Days
+24REG0709,2024-07-09T19:10:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0711,2024-07-11T13:10:00,Thursday,Ticket Offer,,Business Day Specials
+24REG0711,2024-07-11T13:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+24REG0711,2024-07-11T13:10:00,Thursday,Ticket Offer,,Senior Days
+24REG0712,2024-07-12T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+24REG0712,2024-07-12T19:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0713,2024-07-13T16:10:00,Saturday,Misc. Giveaway,,Reds Sticker Sheet
+24REG0714,2024-07-14T13:40:00,Sunday,Misc. Giveaway,,Reds Beach Towel
+24REG0730,2024-07-30T19:10:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0802,2024-08-02T19:10:00,Friday,Theme Game,,Jerry Garcia Ticket Package
+24REG0802,2024-08-02T19:10:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0802,2024-08-02T19:10:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+24REG0803,2024-08-03T19:15:00,Saturday,Misc. Giveaway,,Global Trading Card Day
+24REG0804,2024-08-04T12:05:00,Sunday,Bobblehead,,TJ Friedl City Connect Bobblehead
+24REG0804,2024-08-04T12:05:00,Sunday,Day of Game Highlight,,Run the Bases Days
+24REG0812,2024-08-12T18:40:00,Monday,Ticket Offer,,Family Discount Days
+24REG0812,2024-08-12T18:40:00,Monday,Ticket Offer,,House of the Dragon Ticket Package
+24REG0812,2024-08-12T18:40:00,Monday,Day of Game Highlight,,Bark in the Park
+24REG0813,2024-08-13T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0813,2024-08-13T18:40:00,Tuesday,Ticket Offer,,House of the Dragon Ticket Package
+24REG0814,2024-08-14T18:40:00,Wednesday,Ticket Offer,,House of the Dragon Ticket Package
+24REG0816,2024-08-16T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0816,2024-08-16T18:40:00,Friday,Concert,,Ohio Lottery Post-Game Concert featuring The Docksiders:
+24REG0816,2024-08-16T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+24REG0816,2024-08-16T18:40:00,Friday,Ticket Offer,,Yacht Rock Music Night Ticket Package
+24REG0817,2024-08-17T18:40:00,Saturday,Misc. Giveaway,,Reds Tote Bag
+24REG0817,2024-08-17T18:40:00,Saturday,Fireworks or Drone Show,,Fireworks Show
+24REG0818,2024-08-18T13:40:00,Sunday,Misc. Giveaway,,Reds Bucket Hat
+24REG0827,2024-08-27T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0829,2024-08-29T17:10:00,Thursday,Concert,Large Scale Post-Game Concert,Thomas Rhett Post-Game Benefit Concert
+24REG0830,2024-08-30T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0830,2024-08-30T18:40:00,Friday,Fireworks or Drone Show,,Fireworks Friday
+24REG0830,2024-08-30T18:40:00,Friday,Theme Days,,Military Appreciation Days
+24REG0831,2024-08-31T19:15:00,Saturday,Concert,,Ohio Lottery Post-Game Concert featuring DIESEL aka SHAQ
+24REG0831,2024-08-31T19:15:00,Saturday,Misc. Giveaway,,Reds Sticker Sheet
+24REG0901,2024-09-01T12:10:00,Sunday,Bobblehead,,Hunter Greene City Connect Bobblehead
+24REG0901,2024-09-01T12:10:00,Sunday,Ticket Offer,,Family Discount Days
+24REG0901,2024-09-01T12:10:00,Sunday,Theme Game,,Sesame Street Ticket Package
+24REG0902,2024-09-02T16:10:00,Monday,Theme Game,,Sesame Street Ticket Package
+24REG0902,2024-09-02T16:10:00,Monday,Ticket Offer,,Senior Days
+24REG0904,2024-09-04T18:40:00,Wednesday,Theme Game,,Sesame Street Ticket Package
+24REG0904,2024-09-04T18:40:00,Wednesday,Ticket Offer,,Family Discount Days
+24REG0905,2024-09-05T13:10:00,Thursday,Ticket Offer,,Senior Days
+24REG0905,2024-09-05T13:10:00,Thursday,Ticket Offer,,Business Day Specials
+24REG0905,2024-09-05T13:10:00,Thursday,Theme Game,,Sesame Street Ticket Package
+24REG0905,2024-09-05T13:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+24REG0917,2024-09-17T18:40:00,Tuesday,Theme Game,,Sesame Street Ticket Package
+24REG0917,2024-09-17T18:40:00,Tuesday,Theme Days,,3-2-1 Tuesdays
+24REG0918,2024-09-18T18:40:00,Wednesday,Theme Game,,Sesame Street Ticket Package
+24REG0918,2024-09-18T18:40:00,Wednesday,Day of Game Highlight,,Bark in the Park
+24REG0919,2024-09-19T13:10:00,Thursday,Ticket Offer,,Thirsty Thursdays
+24REG0919,2024-09-19T13:10:00,Thursday,Ticket Offer,,Business Day Specials
+24REG0919,2024-09-19T13:10:00,Thursday,Ticket Offer,,Senior Days
+24REG0919,2024-09-19T13:10:00,Thursday,Theme Game,,Sesame Street Ticket Package
+24REG0920,2024-09-20T18:40:00,Friday,Concert,,Ohio Lottery Post-Game Concert featuring Nelly
+24REG0920,2024-09-20T18:40:00,Friday,Theme Days,,Military Appreciation Days
+24REG0920,2024-09-20T18:40:00,Friday,Day of Game Highlight,,Fireworks Friday
+24REG0920,2024-09-20T18:40:00,Friday,Theme Game,,Sesame Street Ticket Package
+24REG0920,2024-09-20T18:40:00,Friday,Day of Game Highlight,,City Connect Fridays
+24REG0921,2024-09-21T13:10:00,Saturday,Misc. Giveaway,,2024 Reds Team Photo
+24REG0921,2024-09-21T13:10:00,Saturday,Theme Game,,Sesame Street Ticket Package
+24REG0922,2024-09-22T13:10:00,Sunday,Ticket Offer,,Family Discount Days
+24REG0922,2024-09-22T13:10:00,Sunday,Theme Days,,Fan Appreciation Day
+24REG0922,2024-09-22T13:10:00,Sunday,Theme Game,,Sesame Street Ticket Package
+24REG0922,2024-09-22T13:10:00,Sunday,Misc. Giveaway,,Reds Bowling Shirt
