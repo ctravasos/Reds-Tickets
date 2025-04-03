@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 folder_path <- "data"
+#test edit
 
 # List all .csv files in the folder
 files <- list.files(folder_path, pattern = "*.csv", full.names = TRUE)
