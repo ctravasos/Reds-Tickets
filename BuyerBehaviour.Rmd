@@ -34,6 +34,12 @@ group_tickets <- grouped %>% filter(ACCOUNT_TYPE == "Group") %>%group_by(ACCOUNT
 
 #group buys group
 
+write.csv(sums, "sum_tickets.csv")
+
+#what % of pick six are bobble head?
+#timeline of promos + pick six
+#seasonal? summer vs winter?
+
 ```
 
 
