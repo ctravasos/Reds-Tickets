@@ -131,3 +131,33 @@ renew_behavior[which.max(renew_behavior$TENURE), c("ACCOUNT_KEY", "TENURE")]
 # longest renew
 renew_behavior[which.max(renew_behavior$RENEWED), c("ACCOUNT_KEY", "RENEWED", "KEPT_CODES")]
 ```
+
+Demographics of Renewing/Moving
+```{r}
+library(tidyr)
+renew_behavior_demo <- renew_behavior %>%
+  left_join(demographics, by = "ACCOUNT_KEY")
+
+renew_behavior_demo <- renew_behavior_demo %>%
+  mutate(AGE_GROUP = cut(AGE, breaks = c(0, 25, 35, 50, 65, 100),
+                    labels = c("Under 25", "25–35", "36–50", "51–65", "65+")))
+
+
+top10_age <- renew_behavior_demo %>%
+  filter(!is.na(BUYER_TYPE_CODE) & !is.na(AGE_GROUP)) %>%
+  group_by(AGE_GROUP, BUYER_TYPE_CODE) %>%
+  summarise(Count = n(), .groups = 'drop') %>%
+  arrange(AGE_GROUP, desc(Count)) %>%
+  group_by(AGE_GROUP) %>%
+  slice_head(n = 10)
+
+location_behavior <- renew_behavior %>%
+  left_join(ticket_sales %>% select(ACCOUNT_KEY, SEASON_YEAR, CITY, STATE),
+            by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+location_behavior <- location_behavior %>%
+  separate_rows(BUYER_TYPE_CODE, sep = ",\\s*") %>%
+  filter(!is.na(BUYER_TYPE_CODE) & !is.na(CITY) & !is.na(STATE)) %>%
+  group_by(CITY, STATE, BUYER_TYPE_CODE) %>%
+  summarise(Count = n(), .groups = 'drop')
+```
+
