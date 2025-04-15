@@ -16,7 +16,7 @@ account_status <- read.csv('reds_wheelhouse_edw_nd_account_status.csv')
 buyer_types <- read_excel('reds_wheelhouse_edw_nd_buyer_types.xlsx')
 demographics <- read.csv('reds_wheelhouse_edw_nd_demographics.csv')
 promotions <- read.csv('reds_wheelhouse_edw_nd_promotions.csv')
-ticket_sales <- read.csv('reds_wheelhouse_edw_nd_ticket_sales_2.csv')
+ticket_sales <- read.csv('reds_wheelhouse_edw_nd_ticket_sales_3.csv')
 ```
 
 ## Find tenured customers
@@ -159,5 +159,34 @@ location_behavior <- location_behavior %>%
   filter(!is.na(BUYER_TYPE_CODE) & !is.na(CITY) & !is.na(STATE)) %>%
   group_by(CITY, STATE, BUYER_TYPE_CODE) %>%
   summarise(Count = n(), .groups = 'drop')
+```
+
+## Use %
+```{r}
+# overall
+ticket_use_perc <- sum(ticket_sales$SCAN_COUNT, na.rm = TRUE) / nrow(ticket_sales)
+ticket_use_perc
+
+# by year
+ticket_use_yearly <- ticket_sales %>%
+  select(SEASON_YEAR, SCAN_COUNT) %>%
+  group_by(SEASON_YEAR) %>%
+  summarize(perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n())
+ticket_use_yearly
+
+# by game
+ticket_use_by_game <- ticket_sales %>%
+  select(EVENT_NAME, SCAN_COUNT) %>%
+  group_by(EVENT_NAME) %>%
+  summarize(perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n()) %>% arrange(desc(perc_use))
+ticket_use_by_game
+
+# by buyer type code
+ticket_use_by_code <- ticket_sales %>%
+  select(BUYER_TYPE_CODE, SCAN_COUNT) %>%
+  group_by(BUYER_TYPE_CODE) %>%
+  summarize(perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
+            total_count = n()) %>% arrange(desc(total_count))
+ticket_use_by_code
 ```
 
