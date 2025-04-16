@@ -38,7 +38,7 @@ tenure2 <- tenure %>% filter(BUYER_TYPE_CODE != "NA")
 tenure2$TENURE <- tenure2$RENEWED <- tenure2$KEPT_CODES <- tenure2$UNKEPT_CODES <- NA
 ```
 
-## Count Changes to Purchases by Year
+## Count Changes to Purchases by Year (Renew Behavior)
 ```{r}
 renew_behavior <- data.frame(ACCOUNT_KEY = character(),
                              SEASON_YEAR = numeric(),
@@ -161,7 +161,13 @@ location_behavior <- location_behavior %>%
   summarise(Count = n(), .groups = 'drop')
 ```
 
-## Use %
+Non-renewals
+```{r}
+
+```
+
+
+## Ticket Use %
 ```{r}
 # overall
 ticket_use_perc <- sum(ticket_sales$SCAN_COUNT, na.rm = TRUE) / nrow(ticket_sales)
