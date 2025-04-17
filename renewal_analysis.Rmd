@@ -325,6 +325,97 @@ churners <- account_last_seen %>%
   mutate(Years_Gone=latest_season-Last_Active_Season)
   
 
+```
 
+Churners with Demographics
+
+```{r}
+churners_with_demo <- churners %>%
+  left_join(demographics, by = "ACCOUNT_KEY")
+```
+
+Churner Demo Breakdown
+
+```{r}
+
+churners_with_demo %>%
+  mutate(
+    GENDER = ifelse(GENDER == "", "Unknown", GENDER),
+    MARITAL_STATUS = ifelse(MARITAL_STATUS == "", "Unknown", MARITAL_STATUS)
+  ) %>%
+  summarise(
+    avg_age = mean(AGE, na.rm = TRUE),
+    median_income = median(INCOME_MIDPOINT, na.rm = TRUE),
+    gender_dist = paste(names(table(GENDER)), table(GENDER), sep = ": ", collapse = ", "),
+    marital_status_dist = paste(names(table(MARITAL_STATUS)), table(MARITAL_STATUS), sep = ": ", collapse = ", "),
+    pct_with_children = mean(CHILDREN_IN_HH == "Y", na.rm = TRUE)
+  )
+
+
+```
+
+Age distribution of churners
+
+```{r}
+library(ggplot2)
+
+churners_with_demo %>%
+  filter(!is.na(AGE)) %>%
+  mutate(
+    AGE_GROUP = cut(
+      AGE,
+      breaks = c(0, 25, 35, 50, 65, 100),
+      labels = c("Under 25", "25–35", "36–50", "51–65", "65+"),
+      right = TRUE
+    )
+  ) %>%
+  count(AGE_GROUP) %>%
+  ggplot(aes(x = AGE_GROUP, y = n, fill = AGE_GROUP)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Age Group Distribution of Churners", x = "Age Group", y = "Count") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+Gender Breakdown of Churners
+
+```{r}
+churners_with_demo %>%
+  filter(GENDER != "") %>%
+  count(GENDER) %>%
+  ggplot(aes(x = GENDER, y = n, fill = GENDER)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Gender Breakdown of Churners", y = "Count", x = "Gender") +
+  theme_minimal()
+```
+Marital Status and Children Status of Churners
+
+```{r}
+
+churners_with_demo %>%
+  filter(MARITAL_STATUS != "") %>%
+  mutate(
+    CHILDREN_IN_HH = case_when(
+      CHILDREN_IN_HH == "Y" ~ "Y",
+      CHILDREN_IN_HH == "N" ~ "N",
+      TRUE ~ "Unknown"
+    ),
+    CHILDREN_IN_HH = factor(CHILDREN_IN_HH, levels = c("Y", "N", "Unknown"))
+  ) %>%
+  count(MARITAL_STATUS, CHILDREN_IN_HH) %>%
+  ggplot(aes(x = MARITAL_STATUS, y = n, fill = CHILDREN_IN_HH)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Marital Status & Children in Household", y = "Count", fill = "Children in HH") +
+  theme_minimal()
+
+
+
+```
+Top Churn Codes
+
+```{r}
+top_churn_codes <- churners %>% 
+  count(Last_BUYER_TYPE_CODE) %>%
+  arrange(desc(n)) %>% 
+  slice_head(n=10)
 ```
 
