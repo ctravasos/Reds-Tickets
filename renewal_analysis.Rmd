@@ -419,3 +419,75 @@ top_churn_codes <- churners %>%
   slice_head(n=10)
 ```
 
+Churn Rate Per Year
+
+```{r}
+library(purrr)
+
+buyers_per_year <- ticket_sales %>%
+  select(ACCOUNT_KEY, SEASON_YEAR) %>%
+  distinct()
+
+
+churn_data_per_year <- buyers_per_year %>%
+  group_by(SEASON_YEAR) %>%
+  summarise(
+    buyers = list(unique(ACCOUNT_KEY)),
+    total_buyers = n()
+  ) %>%
+  arrange(SEASON_YEAR) %>%
+  mutate(
+    next_year_buyers = lead(buyers),
+    retained_buyers = map2_int(buyers, next_year_buyers, ~ sum(.x %in% .y)),
+    churned_buyers = total_buyers - retained_buyers,
+    churn_rate = churned_buyers / total_buyers
+  )
+
+churn_data_cleaned <- churn_data_per_year %>%
+  filter(lengths(next_year_buyers) > 0)
+
+churn_data_cleaned %>%
+  select(SEASON_YEAR, total_buyers, retained_buyers, churned_buyers, churn_rate)
+
+
+
+```
+
+Churn Rate Per Year By Type
+```{r}
+
+
+
+buyers_by_year_type <- ticket_sales %>%
+  select(ACCOUNT_KEY, SEASON_YEAR, BUYER_TYPE_CODE) %>%
+  distinct()
+
+
+buyers_churn_by_type <- buyers_by_year_type %>%
+  group_by(SEASON_YEAR, BUYER_TYPE_CODE) %>%
+  summarise(
+    buyers = list(unique(ACCOUNT_KEY)),
+    total_buyers = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(SEASON_YEAR) %>%
+  mutate(next_year = SEASON_YEAR + 1) %>%
+  left_join(
+    buyers_by_year_type %>%
+      group_by(SEASON_YEAR) %>%
+      summarise(all_buyers_next = list(unique(ACCOUNT_KEY)), .groups = "drop"),
+    by = c("next_year" = "SEASON_YEAR")
+  ) %>%
+  mutate(
+    retained = map2_int(buyers, all_buyers_next, ~ sum(.x %in% .y)),
+    churned = total_buyers - retained,
+    churn_rate = churned / total_buyers
+  ) %>%
+  select(SEASON_YEAR, BUYER_TYPE_CODE, total_buyers, retained, churned, churn_rate) %>%
+  filter(SEASON_YEAR !=2024)  
+
+
+```
+
+
+
