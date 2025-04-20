@@ -139,8 +139,8 @@ renew_behavior_demo <- renew_behavior %>%
   left_join(demographics, by = "ACCOUNT_KEY")
 
 renew_behavior_demo <- renew_behavior_demo %>%
-  mutate(AGE_GROUP = cut(AGE, breaks = c(0, 25, 35, 50, 65, 100),
-                    labels = c("Under 25", "25–35", "36–50", "51–65", "65+")))
+  mutate(AGE_GROUP = cut(AGE, breaks = c(17, 25, 35, 45, 55, 65, Inf),
+                    labels = c("18–25", "26–35", "36–45", "46–55", "56–65", "66+")))
 
 
 top10_age <- renew_behavior_demo %>%
@@ -364,8 +364,8 @@ churners_with_demo %>%
   mutate(
     AGE_GROUP = cut(
       AGE,
-      breaks = c(0, 25, 35, 50, 65, 100),
-      labels = c("Under 25", "25–35", "36–50", "51–65", "65+"),
+      breaks = c(17, 25, 35, 45, 55, 65, Inf),
+      labels = c("18–25", "26–35", "36–45", "46–55", "56–65", "66+"),
       right = TRUE
     )
   ) %>%
@@ -375,6 +375,7 @@ churners_with_demo %>%
   labs(title = "Age Group Distribution of Churners", x = "Age Group", y = "Count") +
   theme_minimal() +
   theme(legend.position = "none")
+
 ```
 Gender Breakdown of Churners
 
@@ -417,6 +418,8 @@ top_churn_codes <- churners %>%
   count(Last_BUYER_TYPE_CODE) %>%
   arrange(desc(n)) %>% 
   slice_head(n=10)
+
+print(top_churn_codes)
 ```
 
 Churn Rate Per Year
