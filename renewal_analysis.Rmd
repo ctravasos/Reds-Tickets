@@ -492,5 +492,101 @@ buyers_churn_by_type <- buyers_by_year_type %>%
 
 ```
 
+deomgraphics of churners vs non churners
+```{r}
+churners_not_churners_with_demo <- account_last_seen %>%
+  left_join(demographics, by = "ACCOUNT_KEY")
 
+print(churners_not_churners_with_demo)
+```
+
+Age Comp
+
+```{r}
+
+
+demo_comp_age <- churners_not_churners_with_demo %>%
+  group_by(Churned) %>%
+  summarize(
+    avg_age = mean(AGE, na.rm = TRUE),
+    median_age = median(AGE, na.rm = TRUE),
+    sd_age = sd(AGE, na.rm = TRUE),
+    n = n()
+  )
+
+
+print(demo_comp)
+```
+
+Marital Status Comp
+
+```{r}
+demo_comp_marital_status <- churners_not_churners_with_demo %>%
+  filter(MARITAL_STATUS != "") %>%
+  group_by(Churned, MARITAL_STATUS) %>%
+  summarise(count = n()) %>%
+  mutate(percent = count / sum(count) * 100)
+
+print(demo_comp_marital_status)
+```
+
+Income Comp
+
+```{r}
+demo_comp_income <- churners_not_churners_with_demo %>%
+  group_by(Churned) %>%
+  summarise(
+    avg_income = mean(INCOME_MIDPOINT, na.rm = TRUE),
+    median_income = median(INCOME_MIDPOINT, na.rm = TRUE)
+  )
+
+print(demo_comp_income)
+```
+
+Child in Household Comp
+
+```{r}
+demo_comp_children <- churners_not_churners_with_demo %>%
+  group_by(Churned, CHILDREN_IN_HH) %>%
+  filter(CHILDREN_IN_HH != "" & !is.na(CHILDREN_IN_HH)) %>% 
+  summarise(count = n()) %>%
+  mutate(percent = count / sum(count) * 100) 
+  
+
+
+
+print(demo_comp_children)
+```
+
+
+Number of Children Comp
+
+```{r}
+demo_comp_number_children <- churners_not_churners_with_demo %>%
+  group_by(Churned) %>%
+  summarise(
+    avg_kids = mean(NUMBER_OF_CHILDREN, na.rm = TRUE),
+    median_kids = median(NUMBER_OF_CHILDREN, na.rm = TRUE)
+  )
+
+print(demo_comp_number_children)
+```
+
+
+```{r}
+churners_not_churners_with_demo <- churners_not_churners_with_demo %>% 
+   mutate(Marital_Kids = paste(MARITAL_STATUS, CHILDREN_IN_HH, sep = "_"))
+```
+
+Married with kids comp
+
+```{r}
+churners_not_churners_with_demo %>%
+  filter(MARITAL_STATUS != "", CHILDREN_IN_HH != "") %>%
+  group_by(Churned, Marital_Kids) %>%
+  summarise(count = n()) %>%
+  mutate(percent = count / sum(count) * 100) %>%
+  arrange(Churned, desc(percent))
+
+```
 
