@@ -22,20 +22,35 @@ ticket_sales = data_list[[5]]
 unique(account_status$STATUS)
 library(dplyr)
 grouped = ticket_sales %>% group_by(ACCOUNT_KEY) %>% arrange( desc(ACCOUNT_KEY), desc(SEASON_YEAR))
-sums <- grouped %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>% summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD), sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD), sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD)) %>% distinct()
+
+
+
+sums <- grouped %>% group_by(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE) %>% summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD), sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD), sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD)) %>% distinct()
+
+#add information about most popular section per cust
+seating <- grouped %>% select(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, SEAT_SECTION_MODIFIED) %>% group_by(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, SEAT_SECTION_MODIFIED) %>% summarise(mode_seating_section = n()) %>% ungroup(SEAT_SECTION_MODIFIED) %>% filter(mode_seating_section == max(mode_seating_section)) %>% select(-mode_seating_section) %>% rename(SEAT_SECTION_MODE = SEAT_SECTION_MODIFIED) %>% summarise(SEAT_SECTION_MODE = first(SEAT_SECTION_MODE)) %>%
+  mutate(OVERALL_SECTION_MODE =  substring(SEAT_SECTION_MODE, first=1, last =1)) #more generic
+  
+#add info about most popular desc seating
+pricing <- grouped %>% select(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, PRICE_SCALE_DESCRIPTION) %>% group_by(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, PRICE_SCALE_DESCRIPTION) %>% summarise(price_scale_section = n()) %>% ungroup(PRICE_SCALE_DESCRIPTION) %>% filter(price_scale_section == max(price_scale_section)) %>% select(-price_scale_section) %>% rename(PRICE_SCALE_MODE = PRICE_SCALE_DESCRIPTION) %>% summarise(PRICE_SCALE_MODE = first(PRICE_SCALE_MODE)) %>% 
+  separate(PRICE_SCALE_MODE, sep = " ", c("OVERALL_PRICE_MODE", NA), remove = FALSE)
+
+
+merged_sums = merge(seating, merge(pricing, sums, by = c("ACCOUNT_KEY", "SEASON_YEAR", "ACCOUNT_TYPE")), by = c("ACCOUNT_KEY", "SEASON_YEAR", "ACCOUNT_TYPE")) 
+
 
 #separate by account_type: individual, group, business/corp
 indiv_tickets <- grouped %>% filter(ACCOUNT_TYPE == "Individual") %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>% summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD), sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD), sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD)) %>% distinct()
 
 #indiv buy group, one person buys 15+, suite etc.
 
-busi_tickets <- grouped %>% filter(ACCOUNT_TYPE == "Business") %>%group_by(ACCOUNT_KEY, SEASON_YEAR) %>% summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD), sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD), sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD)) %>% distinct()
+busi_tickets <- grouped %>% filter(ACCOUNT_TYPE == "Business") %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>% summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD), sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD), sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD)) %>% distinct()
 
 group_tickets <- grouped %>% filter(ACCOUNT_TYPE == "Group") %>%group_by(ACCOUNT_KEY, SEASON_YEAR) %>% summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD), sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD), sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD)) %>% distinct()
 
 #group buys group
 
-write.csv(sums, "sum_tickets.csv")
+write.csv(merged_sums, "sum_tickets.csv")
 
 #what % of pick six are bobble head?
 #timeline of promos + pick six

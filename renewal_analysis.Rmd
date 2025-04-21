@@ -17,6 +17,8 @@ buyer_types <- read_excel('reds_wheelhouse_edw_nd_buyer_types.xlsx')
 demographics <- read.csv('reds_wheelhouse_edw_nd_demographics.csv')
 promotions <- read.csv('reds_wheelhouse_edw_nd_promotions.csv')
 ticket_sales <- read.csv('reds_wheelhouse_edw_nd_ticket_sales_3.csv')
+buyer_behavior = read.csv("sum_tickets.csv") 
+
 ```
 
 ## Find tenured customers
@@ -112,6 +114,12 @@ for (a in accounts) {
                                      "KEPT_CODES", "UNKEPT_CODES")])
 }
 ```
+Looking at Seating of Customers per Year
+```{r}
+
+```
+
+
 
 Stats
 ```{r}
@@ -194,6 +202,39 @@ ticket_use_by_code <- ticket_sales %>%
   summarize(perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
             total_count = n()) %>% arrange(desc(total_count))
 ticket_use_by_code
+
+ticket_use_by_cust <- ticket_sales %>% filter(ACCOUNT_TYPE) %>%
+  #mutate(EVENT_MONTH = month(as.Date(EVENT_DATETIME))) %>%
+  select(ACCOUNT_KEY, ACCOUNT_TYPE, EVENT_MONTH, SEASON_YEAR, SCAN_COUNT) %>%
+  group_by(ACCOUNT_KEY, EVENT_MONTH,SEASON_YEAR) %>%
+  summarise(ACCOUNT_TYPE, perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
+            total_count = n()) %>% arrange(desc(total_count)) %>% arrange(ACCOUNT_KEY, SEASON_YEAR, EVENT_MONTH)
+
+
+
+#by customer ticket use
+ticket_use_by_cust <- ticket_sales %>% 
+  select(ACCOUNT_KEY, ACCOUNT_TYPE, SEASON_YEAR, SCAN_COUNT) %>%
+  group_by(ACCOUNT_KEY,SEASON_YEAR, ACCOUNT_TYPE) %>%
+  summarise(perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
+            total_count = n()) %>% arrange(desc(total_count)) %>% arrange(ACCOUNT_KEY, SEASON_YEAR )
+
+#by customer ticket use
+ticket_use_by_month <- ticket_sales %>% filter(ACCOUNT_TYPE == "Individual") %>% 
+  mutate(EVENT_MONTH = month(as.Date(EVENT_DATETIME))) %>%
+  select(EVENT_MONTH, SEASON_YEAR, SCAN_COUNT) %>%
+  group_by( EVENT_MONTH,SEASON_YEAR) %>%
+  summarise(perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
+            total_count = n()) %>% arrange(desc(total_count)) 
+
+
+ggplot(data = ticket_use_by_month, aes(x = EVENT_MONTH, y = perc_use, color = factor(SEASON_YEAR))) +geom_line() +
+  labs(title = "Individual Ticket Use by Season")
+
+ticket_use_by_code
+
+
+unique(ticket_sales$PRICE_SCALE_DESCRIPTION)
 ```
 
 ```{r}
@@ -311,14 +352,21 @@ account_last_seen <- ticket_sales %>%
   filter(!is.na(BUYER_TYPE_CODE)) %>%
   group_by(ACCOUNT_KEY) %>%
   arrange(SEASON_YEAR) %>%
-  summarise(
-    Last_Active_Season = last(SEASON_YEAR),
-    Last_BUYER_TYPE_CODE = last(BUYER_TYPE_CODE),
+  mutate( ## instead of summarise so we don't lose all prev years
+    Last_Active_Season = last(SEASON_YEAR), ## last ever season of the customer
     .groups = "drop"
-  )
+  ) %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  mutate(
+    Last_BUYER_TYPE_CODE = last(BUYER_TYPE_CODE), ## last code of that season
+    perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
+    total_count = n(),
+    mode_price_scale = mode(factor(PRICE_SCALE_DESCRIPTION))
+  ) %>% 
+  select(ACCOUNT_KEY, SEASON_YEAR, Last_Active_Season, Last_BUYER_TYPE_CODE, ACCOUNT_TYPE, perc_use, total_count) %>%
+  arrange(ACCOUNT_KEY, SEASON_YEAR) %>% distinct()
 
-account_last_seen <- account_last_seen %>%
-  mutate(Churned = Last_Active_Season < latest_season)
+account_last_seen <- account_last_seen %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  mutate(Churned = (Last_Active_Season == SEASON_YEAR) && !(latest_season == SEASON_YEAR))
 
 churners <- account_last_seen %>% 
   filter(Churned== "TRUE") %>% 
@@ -330,7 +378,7 @@ churners <- account_last_seen %>%
 Churners with Demographics
 
 ```{r}
-churners_with_demo <- churners %>%
+churners_with_demo <- churners %>% ungroup() %>%
   left_join(demographics, by = "ACCOUNT_KEY")
 ```
 
@@ -392,7 +440,7 @@ Marital Status and Children Status of Churners
 
 ```{r}
 
-churners_with_demo %>%
+churners_with_demo %>% 
   filter(MARITAL_STATUS != "") %>%
   mutate(
     CHILDREN_IN_HH = case_when(
@@ -414,7 +462,7 @@ churners_with_demo %>%
 Top Churn Codes
 
 ```{r}
-top_churn_codes <- churners %>% 
+top_churn_codes <- churners %>% ungroup() %>%
   count(Last_BUYER_TYPE_CODE) %>%
   arrange(desc(n)) %>% 
   slice_head(n=10)
@@ -496,6 +544,12 @@ deomgraphics of churners vs non churners
 ```{r}
 churners_not_churners_with_demo <- account_last_seen %>%
   left_join(demographics, by = "ACCOUNT_KEY")
+
+churners_not_churners_with_demo <- merge(churners_not_churners_with_demo, buyer_behavior, by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+
+length(unique(churners_not_churners_with_demo$PRICE_SCALE_MODE))
+length(unique(churners_not_churners_with_demo$OVERALL_PRICE_MODE))
+
 
 print(churners_not_churners_with_demo)
 ```
@@ -587,6 +641,40 @@ churners_not_churners_with_demo %>%
   summarise(count = n()) %>%
   mutate(percent = count / sum(count) * 100) %>%
   arrange(Churned, desc(percent))
+
+```
+Churn vs Use    
+
+```{r}
+churners_not_churners_with_demo %>% arrange(ACCOUNT_KEY)
+length(unique(churners_not_churners_with_demo$ACCOUNT_KEY))
+demographics
+```
+
+```{r}
+
+demo_comp_use <- churners_not_churners_with_demo 
+  group_by(Churned) %>%
+  summarize(
+    avg_use = mean(perc_use, na.rm = TRUE),
+    low_use = quantile(perc_use, 0.25),
+    high_use = quantile(perc_use, 0.75),
+    n = n()
+  )
+
+ggplot() + geom_density(data = churners_not_churners_with_demo %>% filter(total_count > 20), aes(fill = factor(Churned), alpha = 0.5, x = perc_use), labs(title = "Density Plot of Percentage Ticket Use in Churn Year"))
+```
+
+```{r}
+demo_comp_seating <- churners_not_churners_with_demo  %>%
+  group_by(Churned, OVERALL_PRICE_MODE) %>%
+  summarize(
+    n = n()
+  )
+
+ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = ACCOUNT_TYPE, position = "stacked", fill = Churned))
+
+ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = OVERALL_PRICE_MODE, position = "stacked", fill = Churned))
 
 ```
 
