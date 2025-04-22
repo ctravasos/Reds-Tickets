@@ -5,7 +5,8 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
+library(tidyr)
 folder_path <- "data"
 #test edit
 
@@ -50,11 +51,29 @@ group_tickets <- grouped %>% filter(ACCOUNT_TYPE == "Group") %>%group_by(ACCOUNT
 
 #group buys group
 
-write.csv(merged_sums, "sum_tickets.csv")
+#write.csv(merged_sums, "sum_tickets.csv")
 
 #what % of pick six are bobble head?
 #timeline of promos + pick six
 #seasonal? summer vs winter?
+
+```
+
+Cohort Analysis
+```{r}
+cohort_analysis <- merged_sums %>% select(-c("SEAT_SECTION_MODE","OVERALL_SECTION_MODE","PRICE_SCALE_MODE","OVERALL_PRICE_MODE" )) %>% group_by(ACCOUNT_KEY) %>% arrange(ACCOUNT_KEY,SEASON_YEAR) %>% 
+  mutate(Cohort = first(SEASON_YEAR)) %>%
+  pivot_longer(cols = -c(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE, Cohort) ,names_to = "TicketType", values_to = "TicketsSoldSum") %>%
+  mutate(TicketType = gsub("sum\\(|_SOLD\\)", "", TicketType), )
+  pivot_wider(names_from = SEASON_YEAR, values_from = c("sum(TICKET_SOLD)", "sum(FLEX_PLAN_TICKET_SOLD)", "sum(FULL_PLAN_TICKET_SOLD)","sum(FORTY_PLAN_TICKET_SOLD)","sum(GROUP_TICKET_SOLD)","sum(MINI_PLAN_TICKET_SOLD)","sum(SEASON_TICKET_SOLD)","sum(SINGLE_TICKET_SOLD)","sum(SIXPACK_PLAN_TICKET_SOLD)")) %>% zoo::na.fill(0) %>% as.data.frame()
+
+
+write.csv(cohort_analysis, "cohort_analysis.csv")
+
+colnames(merged_sums)
+summary(cohort_analysis)
+```
+```{r}
 
 ```
 
