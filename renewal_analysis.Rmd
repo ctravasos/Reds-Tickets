@@ -203,12 +203,12 @@ ticket_use_by_code <- ticket_sales %>%
             total_count = n()) %>% arrange(desc(total_count))
 ticket_use_by_code
 
-ticket_use_by_cust <- ticket_sales %>% filter(ACCOUNT_TYPE) %>%
-  #mutate(EVENT_MONTH = month(as.Date(EVENT_DATETIME))) %>%
-  select(ACCOUNT_KEY, ACCOUNT_TYPE, EVENT_MONTH, SEASON_YEAR, SCAN_COUNT) %>%
-  group_by(ACCOUNT_KEY, EVENT_MONTH,SEASON_YEAR) %>%
-  summarise(ACCOUNT_TYPE, perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
-            total_count = n()) %>% arrange(desc(total_count)) %>% arrange(ACCOUNT_KEY, SEASON_YEAR, EVENT_MONTH)
+# ticket_use_by_cust <- ticket_sales %>% filter(ACCOUNT_TYPE) %>%
+#   #mutate(EVENT_MONTH = month(as.Date(EVENT_DATETIME))) %>%
+#   select(ACCOUNT_KEY, ACCOUNT_TYPE, EVENT_MONTH, SEASON_YEAR, SCAN_COUNT) %>%
+#   group_by(ACCOUNT_KEY, EVENT_MONTH,SEASON_YEAR) %>%
+#   summarise(ACCOUNT_TYPE, perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
+#             total_count = n()) %>% arrange(desc(total_count)) %>% arrange(ACCOUNT_KEY, SEASON_YEAR, EVENT_MONTH)
 
 
 
@@ -569,7 +569,7 @@ demo_comp_age <- churners_not_churners_with_demo %>%
   )
 
 
-print(demo_comp)
+
 ```
 
 Marital Status Comp
@@ -653,7 +653,7 @@ demographics
 
 ```{r}
 
-demo_comp_use <- churners_not_churners_with_demo 
+demo_comp_use <- churners_not_churners_with_demo %>%
   group_by(Churned) %>%
   summarize(
     avg_use = mean(perc_use, na.rm = TRUE),
@@ -662,7 +662,7 @@ demo_comp_use <- churners_not_churners_with_demo
     n = n()
   )
 
-ggplot() + geom_density(data = churners_not_churners_with_demo %>% filter(total_count > 20), aes(fill = factor(Churned), alpha = 0.5, x = perc_use), labs(title = "Density Plot of Percentage Ticket Use in Churn Year"))
+ggplot() + geom_density(data = churners_not_churners_with_demo %>% filter(total_count > 20), aes(fill = factor(Churned), alpha = 0.5, x = perc_use)) + labs(title = "Density Plot of Percentage Ticket Use in Churn Year")
 ```
 
 ```{r}
@@ -672,9 +672,20 @@ demo_comp_seating <- churners_not_churners_with_demo  %>%
     n = n()
   )
 
-ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = ACCOUNT_TYPE, position = "stacked", fill = Churned))
+
+demo_comp_section <- churners_not_churners_with_demo  %>% filter(OVERALL_SECTION_MODE %in% c('1', '2', '3', '4', '5')) %>%
+  group_by(OVERALL_SECTION_MODE, Churned) %>%
+  summarize(
+    total_count = n()
+  ) %>% ungroup(Churned) %>% mutate(perc = total_count/sum(total_count))
+  
+
+ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = ACCOUNT_TYPE.x, position = "stacked", fill = Churned))
 
 ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = OVERALL_PRICE_MODE, position = "stacked", fill = Churned))
+
+ggplot() + geom_bar(data = churners_not_churners_with_demo %>% filter(OVERALL_SECTION_MODE %in% c('1', '2', '3', '4', '5')) %>% filter(ACCOUNT_TYPE.x == 'Individual'), aes(x = OVERALL_SECTION_MODE, position = "stacked", fill = Churned)) + labs(title = "Churn Rate by Seating Section")
+
 
 ```
 
