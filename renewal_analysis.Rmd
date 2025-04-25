@@ -12,13 +12,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Data
 ```{r}
 library(readxl)
-account_status <- read.csv('reds_wheelhouse_edw_nd_account_status.csv')
-buyer_types <- read_excel('reds_wheelhouse_edw_nd_buyer_types.xlsx')
-demographics <- read.csv('reds_wheelhouse_edw_nd_demographics.csv')
-promotions <- read.csv('reds_wheelhouse_edw_nd_promotions.csv')
-ticket_sales <- read.csv('reds_wheelhouse_edw_nd_ticket_sales_3.csv')
+account_status <- read.csv('data/reds_wheelhouse_edw_nd_account_status.csv')
+buyer_types <- read_excel('data/reds_wheelhouse_edw_nd_buyer_types.xlsx')
+demographics <- read.csv('data/reds_wheelhouse_edw_nd_demographics.csv')
+promotions <- read.csv('data/reds_wheelhouse_edw_nd_promotions.csv')
+ticket_sales <- read.csv('data/reds_wheelhouse_edw_nd_ticket_sales_3.csv')
 buyer_behavior = read.csv("sum_tickets.csv") 
-
 ```
 
 ## Find tenured customers
@@ -334,14 +333,12 @@ for (a in accounts) {
   
   renew_behavior_return_after_gap <- rbind(renew_behavior_return_after_gap, temp)
 }
-
 ```
 
 
 
 
 This has lists churners and last code they purchased
-
 ```{r}
 
 
@@ -371,19 +368,15 @@ account_last_seen <- account_last_seen %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>
 churners <- account_last_seen %>% 
   filter(Churned== "TRUE") %>% 
   mutate(Years_Gone=latest_season-Last_Active_Season)
-  
-
 ```
 
 Churners with Demographics
-
 ```{r}
 churners_with_demo <- churners %>% ungroup() %>%
   left_join(demographics, by = "ACCOUNT_KEY")
 ```
 
 Churner Demo Breakdown
-
 ```{r}
 
 churners_with_demo %>%
@@ -398,12 +391,9 @@ churners_with_demo %>%
     marital_status_dist = paste(names(table(MARITAL_STATUS)), table(MARITAL_STATUS), sep = ": ", collapse = ", "),
     pct_with_children = mean(CHILDREN_IN_HH == "Y", na.rm = TRUE)
   )
-
-
 ```
 
 Age distribution of churners
-
 ```{r}
 library(ggplot2)
 
@@ -426,7 +416,6 @@ churners_with_demo %>%
 
 ```
 Gender Breakdown of Churners
-
 ```{r}
 churners_with_demo %>%
   filter(GENDER != "") %>%
@@ -436,8 +425,8 @@ churners_with_demo %>%
   labs(title = "Gender Breakdown of Churners", y = "Count", x = "Gender") +
   theme_minimal()
 ```
-Marital Status and Children Status of Churners
 
+Marital Status and Children Status of Churners
 ```{r}
 
 churners_with_demo %>% 
@@ -455,23 +444,23 @@ churners_with_demo %>%
   geom_bar(stat = "identity", position = "dodge") +
   labs(title = "Marital Status & Children in Household", y = "Count", fill = "Children in HH") +
   theme_minimal()
-
-
-
 ```
-Top Churn Codes
 
+Top Churn Codes
 ```{r}
 top_churn_codes <- churners %>% ungroup() %>%
   count(Last_BUYER_TYPE_CODE) %>%
   arrange(desc(n)) %>% 
   slice_head(n=10)
 
+top_churn_codes <- merge(top_churn_codes, buyer_types %>% select(BUYER_TYPE_CODE, BUYER_TYPE_DESCRIPTION), 
+                         by.x = "Last_BUYER_TYPE_CODE", by.y = "BUYER_TYPE_CODE", all.x = TRUE)
 print(top_churn_codes)
 ```
 
-Churn Rate Per Year
 
+
+Churn Rate Per Year
 ```{r}
 library(purrr)
 
