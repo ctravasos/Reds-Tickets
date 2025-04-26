@@ -1,0 +1,326 @@
+---
+title: "renewal2"
+author: "Sarah Deussing"
+date: "2025-04-25"
+output: html_document
+---
+
+## Data
+```{r}
+library(readxl)
+account_status <- read.csv('data/reds_wheelhouse_edw_nd_account_status.csv')
+buyer_types <- read_excel('data/reds_wheelhouse_edw_nd_buyer_types.xlsx')
+demographics <- read.csv('data/reds_wheelhouse_edw_nd_demographics.csv')
+promotions <- read.csv('data/reds_wheelhouse_edw_nd_promotions.csv')
+ticket_sales <- read.csv('data/reds_wheelhouse_edw_nd_ticket_sales_3.csv')
+buyer_behavior = read.csv("sum_tickets.csv") 
+```
+
+
+## Count Changes to Purchases by Year (Renew Behavior)
+```{r}
+library(dplyr)
+tenure <- account_status %>% group_by(ACCOUNT_KEY) %>% 
+  filter(max(TENURE) > 1) %>% 
+  arrange(ACCOUNT_KEY, SEASON_YEAR, FIRST_PURCHASE_DATE) %>%
+  select(ACCOUNT_KEY, SEASON_YEAR) %>% distinct()
+
+tenure <- merge(tenure, ticket_sales[, c("ACCOUNT_KEY", "SEASON_YEAR", "BUYER_TYPE_CODE")], 
+                by = c("ACCOUNT_KEY", "SEASON_YEAR"), all.x = TRUE)
+
+tenure <- tenure %>%
+  group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  summarise(BUYER_TYPE_CODE = paste(unique(BUYER_TYPE_CODE), collapse = ", "), .groups = 'drop')
+
+tenure2 <- tenure %>% filter(BUYER_TYPE_CODE != "NA")
+tenure2$TENURE <- tenure2$RENEWED <- tenure2$KEPT_CODES <- tenure2$UNKEPT_CODES <- NA
+
+tenure2$GENERAL_BUYER_CODE <- sapply(strsplit(tenure2$BUYER_TYPE_CODE, ","), function(x) {
+  x_trimmed <- trimws(x)
+  x_short <- vapply(x_trimmed, function(word) substr(word, 1, 3), character(1))
+  x_unique <- unique(x_short)
+  paste(x_unique, collapse = ",")
+})
+```
+
+```{r}
+tenure2 <- tenure2 %>% select(-BUYER_TYPE_CODE)
+```
+
+
+```{r}
+renew_behavior <- data.frame(ACCOUNT_KEY = character(),
+                             SEASON_YEAR = numeric(),
+                             GENERAL_BUYER_CODE = character(),
+                             TENURE = numeric(),
+                             RENEWED = numeric(),
+                             KEPT_CODES = character(),
+                             UNKEPT_CODES = character())
+
+accounts <- unique(tenure2$ACCOUNT_KEY)
+
+for (a in accounts) {
+    temp <- tenure2[tenure2$ACCOUNT_KEY == a, ]
+    temp <- temp[order(temp$SEASON_YEAR), ]
+    
+    years <- unique(temp$SEASON_YEAR)
+    all_years <- seq(from = min(temp$SEASON_YEAR), to = max(temp$SEASON_YEAR), by = 1)
+    missing <- setdiff(all_years, years)
+    if (length(missing) > 0) {
+      df <- data.frame(ACCOUNT_KEY = rep(a, length(missing)), SEASON_YEAR = missing,
+                       GENERAL_BUYER_CODE = rep(NA, length(missing)), TENURE = rep(NA, length(missing)), 
+                       RENEWED = rep(NA, length(missing)), 
+                       KEPT_CODES = rep(NA, length(missing)), UNKEPT_CODES = rep(NA, length(missing)))
+      temp <- rbind(temp, df)
+      temp <- temp[order(temp$SEASON_YEAR), ]
+    }
+  
+    # new columns
+    renewed <- rep(0, nrow(temp))
+    tenured <- rep(1, nrow(temp))
+    kept_codes <- unkept_codes <- rep(NA, nrow(temp))
+    renew_val <- 0
+    tenure_val <- 1
+    for (i in 1: nrow(temp)) {
+      if (i == 1) {renew_val <- 0 
+                  tenure_val <- 1}
+      else {
+        
+        # if they purchased something that year (buyer code is not NA)
+        if (!is.na(temp$GENERAL_BUYER_CODE[i])) { 
+          tenure_val <- tenure_val + 1 # increment tenure val
+          
+          curr_codes <- unlist(strsplit(temp$GENERAL_BUYER_CODE[i], ","))
+          prev_codes <- unlist(strsplit(temp$GENERAL_BUYER_CODE[i-1], ","))
+        
+          kept_codes[i] <- paste(intersect(curr_codes, prev_codes), collapse = ",")
+          unkept_codes[i] <- paste(setdiff(curr_codes, prev_codes), collapse = ",")
+        
+          # increment renew val
+          if (length(intersect(curr_codes, prev_codes)) > 0) { renew_val <- renew_val + 1 }
+          else { renew_val <-  0 }
+        }
+        
+        # they did not purchase anything
+        else {tenure_val <- 1 
+              renew_val <- 0
+              kept_codes[i] <- "none"
+              unkept_codes[i] <- "none"}
+      }
+      
+      renewed[i] <- renew_val
+      tenured[i] <- tenure_val
+    }
+    temp$RENEWED <- renewed
+    temp$TENURE <- tenured
+    temp$KEPT_CODES <- kept_codes
+    temp$UNKEPT_CODES <- unkept_codes
+    
+    renew_behavior <- rbind(renew_behavior, 
+                            temp[, c("ACCOUNT_KEY", "SEASON_YEAR", "GENERAL_BUYER_CODE", "TENURE", "RENEWED", 
+                                     "KEPT_CODES", "UNKEPT_CODES")])
+}
+```
+
+Stats
+```{r}
+# most common kept code
+kept_codes_table <- table(renew_behavior$KEPT_CODES[!renew_behavior$KEPT_CODES %in% c("", "none")])
+names(kept_codes_table)[which.max(kept_codes_table)]
+
+# most common unkept code
+unkept_codes_table <- table(renew_behavior$UNKEPT_CODES[!renew_behavior$UNKEPT_CODES %in% c("", "none")])
+names(unkept_codes_table)[which.max(unkept_codes_table)]
+```
+
+```{r}
+# longest tenure
+renew_behavior[which.max(renew_behavior$TENURE), c("ACCOUNT_KEY", "TENURE")]
+
+# longest renew
+renew_behavior[which.max(renew_behavior$RENEWED), c("ACCOUNT_KEY", "RENEWED", "KEPT_CODES")]
+```
+
+
+## Last general code of churners
+```{r}
+ticket_sales$GENERAL_BUYER_CODE <- substr(ticket_sales$BUYER_TYPE_CODE, 1, 3)
+```
+
+```{r}
+latest_season <- max(ticket_sales$SEASON_YEAR, na.rm = TRUE)
+
+account_last_seen <- ticket_sales %>%
+  filter(!is.na(GENERAL_BUYER_CODE)) %>%
+  group_by(ACCOUNT_KEY) %>%
+  arrange(SEASON_YEAR) %>%
+  mutate(
+    Last_Active_Season = last(SEASON_YEAR),
+    .groups = "drop"
+  ) %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  mutate(
+    Last_GENERAL_BUYER_CODE = last(GENERAL_BUYER_CODE),
+    perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
+    total_count = n(),
+    mode_price_scale = mode(factor(PRICE_SCALE_DESCRIPTION))
+  ) %>% 
+  select(ACCOUNT_KEY, SEASON_YEAR, Last_Active_Season, Last_GENERAL_BUYER_CODE, ACCOUNT_TYPE, perc_use, total_count) %>%
+  arrange(ACCOUNT_KEY, SEASON_YEAR) %>% distinct()
+
+account_last_seen <- account_last_seen %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  mutate(Churned = (Last_Active_Season == SEASON_YEAR) && !(latest_season == SEASON_YEAR))
+
+churners <- account_last_seen %>% 
+  filter(Churned== "TRUE") %>% 
+  mutate(Years_Gone=latest_season-Last_Active_Season)
+```
+
+
+Top Churn Codes
+```{r}
+top_churn_codes <- churners %>% ungroup() %>%
+  count(Last_GENERAL_BUYER_CODE) %>%
+  arrange(desc(n)) %>% 
+  slice_head(n=10)
+
+desc <- data.frame(Last_GENERAL_BUYER_CODE = top_churn_codes$Last_GENERAL_BUYER_CODE, Description = c("Pick 6", "Full price ticket", "Full NP new", "Full NP renew/upgrade", "Flex pack", "Holiday flex pack", "Full exchange", "Day of game", "Front Row", "Full PR new"))
+top_churn_codes <- merge(top_churn_codes, desc)
+
+top_churn_codes %>% arrange(desc(n)) 
+```
+
+Top churned codes are pick 6, full price tickets, and flex pack tickets.
+```{r}
+get_mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+```
+
+```{r}
+sales_demo <- merge(ticket_sales, demographics, by = "ACCOUNT_KEY")
+```
+
+```{r}
+churn_codes_ranked <- churners %>%
+  group_by(Last_GENERAL_BUYER_CODE) %>%
+  summarize(count = n()) %>% arrange(desc(count)) %>%
+  mutate(churn_rank = row_number()) %>%
+  rename(GENERAL_BUYER_CODE = Last_GENERAL_BUYER_CODE)
+
+sales_demo2 <- merge(sales_demo, churn_codes_ranked, by = "GENERAL_BUYER_CODE")
+#write.csv(sales_demo2, "sales_and_churn.csv")
+```
+
+```{r, warning = FALSE}
+sales_demo %>% filter(GENERAL_BUYER_CODE %in% top_churn_codes$Last_GENERAL_BUYER_CODE) %>%
+  group_by(GENERAL_BUYER_CODE) %>%
+  summarize(avg_age = mean(AGE, na.rm = TRUE),
+            mean_income_mid = mean(INCOME_MIDPOINT, na.rm = TRUE),
+            seat_section_avg = mean(as.numeric(SEAT_SECTION), na.rm = TRUE),
+            seat_row_avg = get_mode(SEAT_ROW),
+            zip_code_mode = get_mode(ZIP_CODE),
+            city_mode = get_mode(CITY),
+            state_mode = get_mode(STATE),
+            opp_mode = get_mode(OPPONENT))
+```
+
+## Renewal & Churn Rates
+What are the renewal and churn rates? What can you tell us about when people decide not to renew?
+
+List of account keys that churned and what year (the last year they appeared)
+```{r}
+ppl_unique <- ticket_sales %>% distinct(SEASON_YEAR, ACCOUNT_KEY) %>% arrange(ACCOUNT_KEY, SEASON_YEAR)
+
+accounts <- unique(ppl_unique$ACCOUNT_KEY)
+years <- c(2021, 2022, 2023, 2024)
+
+churners <- data.frame()
+for (a in accounts) {
+  temp <- ppl_unique %>% filter(ACCOUNT_KEY == a)
+  active_years <- sort(temp$SEASON_YEAR)
+  
+  for (y in active_years) {
+    if ((y + 1) %in% years && !(y + 1) %in% active_years) {
+      churners <- rbind(churners, data.frame(ACCOUNT_KEY = a, SEASON_YEAR = y))
+    }
+  }
+}
+```
+
+Churn rates (% of people that didn't come back the next year)
+```{r}
+churn_rates <- ppl_unique %>%
+  filter(SEASON_YEAR < 2024) %>%
+  left_join(churners %>% mutate(churned = 1),
+            by = c("ACCOUNT_KEY", "SEASON_YEAR")) %>%
+  group_by(SEASON_YEAR) %>%
+  summarise(
+    total_accounts = n(),
+    churned_accounts = sum(!is.na(churned)),
+    churn_rate = churned_accounts / total_accounts,
+    renewal_rate = 1 - churn_rate
+  )
+churn_rates
+```
+
+Demographics of People who churned each year
+```{r, message = FALSE}
+churners_demo <- merge(churners, demographics, by = "ACCOUNT_KEY")
+
+tickets_nums <- ticket_sales %>% select(where(is.numeric), -"HOME_GAME_NUMBER", -"HOMESTAND_NUMBER",
+                                        -"SEAT_NUMBER", -"SCAN_COUNT")
+tickets_chars <- ticket_sales %>% select("ACCOUNT_KEY", "SEASON_YEAR", where(~ !is.numeric(.)),
+                                         "HOME_GAME_NUMBER", "HOMESTAND_NUMBER",
+                                        "SEAT_NUMBER", "SCAN_COUNT")
+
+tickets_nums <- tickets_nums %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>% 
+  summarize(TICKET_SOLD = sum(TICKET_SOLD), FLEX_PLAN_TICKET_SOLD = sum(FLEX_PLAN_TICKET_SOLD), 
+            FORTY_PLAN_TICKET_SOLD = sum(FORTY_PLAN_TICKET_SOLD), FULL_PLAN_TICKET_SOLD = sum(FULL_PLAN_TICKET_SOLD),
+            GROUP_TICKET_SOLD = sum(GROUP_TICKET_SOLD), MINI_PLAN_TICKET_SOLD = sum(MINI_PLAN_TICKET_SOLD),
+            SEASON_TICKET_SOLD = sum(SEASON_TICKET_SOLD), SINGLE_TICKET_SOLD = sum(SINGLE_TICKET_SOLD),
+            SIXPACK_PLAN_TICKET_SOLD = sum(SIXPACK_PLAN_TICKET_SOLD))
+
+tickets_chars <- tickets_chars %>%
+  group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  summarise(across(
+    .cols = everything(), 
+    .fns = ~ paste(unique(.), collapse = ", "),
+    .names = "{.col}"), .groups = "drop")
+```
+
+```{r}
+churners_demo <- merge(churners_demo, tickets_chars, by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+churners_demo <- merge(churners_demo, tickets_nums, by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+```
+
+Adjust age (this is their age in 2024)
+```{r}
+churners_demo <- churners_demo %>%
+  mutate(AGE = ifelse(!is.na(AGE), AGE - (2024 - SEASON_YEAR), NA))
+```
+
+
+Get top 3 most common things for churners that year
+```{r}
+get_modes_str <- function(x) {
+  x_unlisted <- unlist(x)
+  x_filtered <- x_unlisted[!x_unlisted %in% c("Unknown", "")]
+  freq_table <- sort(table(x_filtered), decreasing = TRUE)
+  top <- names(freq_table)[1:min(3, length(freq_table))]
+  paste(top, collapse = ", ")
+}
+
+churners_demo_modes <- churners_demo %>%
+  group_by(SEASON_YEAR) %>%
+  summarise(AVG_AGE = mean(AGE, na.rm = TRUE),
+            across(
+    .cols = c(GENDER, MARITAL_STATUS, INCOME_MIDPOINT, CHILDREN_IN_HH, NUMBER_OF_CHILDREN, 
+              BUYER_TYPE_CODE, BUYER_TYPE_DESCRIPTION, BUYER_TYPE_GROUP_CODE, BUYER_TYPE_GROUP_DESCRIPTION,
+              OPPONENT, ACCOUNT_TYPE, CITY, STATE, ZIP_CODE, PRICE_SCALE_DESCRIPTION, SEAT_SECTION,
+              SEAT_SECTION_MODIFIED, SEAT_ROW),
+    .fns = ~ get_modes_str(.),
+    .names = "{.col}_top3"))
+churners_demo_modes
+```
+
