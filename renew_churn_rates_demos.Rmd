@@ -301,7 +301,7 @@ churners_demo <- churners_demo %>%
 ```
 
 
-Get top 3 most common things for churners that year
+Get top 3 most common things / averages / sums for churners that year
 ```{r}
 get_modes_str <- function(x) {
   x_unlisted <- unlist(x)
@@ -317,10 +317,18 @@ churners_demo_modes <- churners_demo %>%
             across(
     .cols = c(GENDER, MARITAL_STATUS, INCOME_MIDPOINT, CHILDREN_IN_HH, NUMBER_OF_CHILDREN, 
               BUYER_TYPE_CODE, BUYER_TYPE_DESCRIPTION, BUYER_TYPE_GROUP_CODE, BUYER_TYPE_GROUP_DESCRIPTION,
-              OPPONENT, ACCOUNT_TYPE, CITY, STATE, ZIP_CODE, PRICE_SCALE_DESCRIPTION, SEAT_SECTION,
-              SEAT_SECTION_MODIFIED, SEAT_ROW),
+              GENERAL_BUYER_CODE, OPPONENT, ACCOUNT_TYPE, CITY, STATE, ZIP_CODE, PRICE_SCALE_DESCRIPTION, 
+              SEAT_SECTION, SEAT_ROW),
     .fns = ~ get_modes_str(.),
-    .names = "{.col}_top3"))
+    .names = "{.col}_top3"),
+    nTICKET_SOLD = sum(TICKET_SOLD),
+    nFLEX_PLAN_TICKET_SOLD = sum(FLEX_PLAN_TICKET_SOLD),
+    nFORTY_PLAN_TICKET_SOLD = sum(FORTY_PLAN_TICKET_SOLD),
+    nSEASON_TICKET_SOLD = sum(SEASON_TICKET_SOLD),
+    nMINI_PLAN_TICKET_SOLD = sum(MINI_PLAN_TICKET_SOLD),
+    nSINGLE_TICKET_SOLD = sum(SINGLE_TICKET_SOLD),
+    nGROUP_TICKET_SOLD = sum(GROUP_TICKET_SOLD),
+    nSIXPACK_PLAN_TICKET_SOLD = sum(SIXPACK_PLAN_TICKET_SOLD))
 churners_demo_modes
 ```
 
