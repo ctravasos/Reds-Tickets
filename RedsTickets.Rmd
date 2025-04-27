@@ -396,6 +396,17 @@ average_fans_per_game
 ```
 
 
+```{r}
+library(dplyr)
+
+# Calculate unique buyers per season
+unique_buyers_per_season <- indiv_tickets %>%
+  group_by(SEASON_YEAR) %>%
+  summarise(unique_buyers = n_distinct(ACCOUNT_KEY), .groups = 'drop')
+
+# View the results
+unique_buyers_per_season
+```
 
 
 
