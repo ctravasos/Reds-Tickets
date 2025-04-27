@@ -400,5 +400,80 @@ average_fans_per_game
 
 
 
+```{r}
+library(dplyr)
 
+# Calculate average number of games attended for each ticket package
+average_games_per_package <- ticket_sales %>%
+  group_by(SEASON_YEAR) %>%
+  summarise(
+    average_games_flex_plan = mean(`FLEX_PLAN_TICKET_SOLD`, na.rm = TRUE),
+    average_games_forty_plan = mean(`FORTY_PLAN_TICKET_SOLD`, na.rm = TRUE),
+    average_games_full_plan = mean(`FULL_PLAN_TICKET_SOLD`, na.rm = TRUE),
+    average_games_group_tickets = mean(`GROUP_TICKET_SOLD`, na.rm = TRUE),
+    average_games_mini_plan = mean(`MINI_PLAN_TICKET_SOLD`, na.rm = TRUE),
+    average_games_season_tickets = mean(`SEASON_TICKET_SOLD`, na.rm = TRUE),
+    average_games_single_tickets = mean(`SINGLE_TICKET_SOLD`, na.rm = TRUE),
+    average_games_sixpack_plan = mean(`SIXPACK_PLAN_TICKET_SOLD`, na.rm = TRUE)
+  )
+
+# View the results
+average_games_per_package
+```
+
+```{r}
+library(dplyr)
+
+# Function to calculate average games attended for a specific ticket package
+calculate_average_games <- function(data, ticket_column) {
+  data %>%
+    filter(!!sym(ticket_column) > 0) %>% # Include only rows where tickets were sold for this package
+    group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+    summarise(distinct_games_attended = n_distinct(EVENT_NAME), .groups = 'drop') %>%
+    summarise(average_games = mean(distinct_games_attended, na.rm = TRUE))
+}
+
+# Calculate for each ticket package
+average_games_flex_plan <- calculate_average_games(ticket_sales, "FLEX_PLAN_TICKET_SOLD")
+average_games_forty_plan <- calculate_average_games(ticket_sales, "FORTY_PLAN_TICKET_SOLD")
+average_games_full_plan <- calculate_average_games(ticket_sales, "FULL_PLAN_TICKET_SOLD")
+average_games_group_tickets <- calculate_average_games(ticket_sales, "GROUP_TICKET_SOLD")
+average_games_mini_plan <- calculate_average_games(ticket_sales, "MINI_PLAN_TICKET_SOLD")
+average_games_season_tickets <- calculate_average_games(ticket_sales, "SEASON_TICKET_SOLD")
+average_games_single_tickets <- calculate_average_games(ticket_sales, "SINGLE_TICKET_SOLD")
+average_games_sixpack_plan <- calculate_average_games(ticket_sales, "SIXPACK_PLAN_TICKET_SOLD")
+
+# Combine results into a single data frame
+average_games_per_package <- tibble(
+  Ticket_Package = c("Flex Plan", "Forty Plan", "Full Plan", "Group Tickets",
+                     "Mini Plan", "Season Tickets", "Single Tickets", "Sixpack Plan"),
+  Average_Games = c(
+    average_games_flex_plan$average_games,
+    average_games_forty_plan$average_games,
+    average_games_full_plan$average_games,
+    average_games_group_tickets$average_games,
+    average_games_mini_plan$average_games,
+    average_games_season_tickets$average_games,
+    average_games_single_tickets$average_games,
+    average_games_sixpack_plan$average_games
+  )
+)
+
+# View the results
+average_games_per_package
+```
+
+```{r}
+library(ggplot2)
+
+# Plot average games attended by ticket package in descending order
+ggplot(average_games_per_package %>%
+         arrange(desc(Average_Games)), aes(x = reorder(Ticket_Package, -Average_Games), y = Average_Games, fill = Ticket_Package)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  labs(title = "Average Games Attended by Ticket Package",
+       x = "Ticket Package",
+       y = "Average Games Attended") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
+```
 
