@@ -11,7 +11,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(dplyr)
-library(writexl)
+library(readxl)
+library(readr)
+library(tidyr)
+
 
 ```
 
@@ -68,6 +71,42 @@ group_tickets <- grouped %>% filter(ACCOUNT_TYPE == "Group") %>%group_by(ACCOUNT
 
 ```
 
+```{r}
+# Individual Tickets
+indiv_tickets <- grouped %>%
+  filter(ACCOUNT_TYPE == "Individual") %>%
+  group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE,
+            sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD),
+            sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD),
+            sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD),
+            EVENT_NAME, EVENT_DATETIME, OPPONENT) %>%
+  distinct()
+
+# Business Tickets
+busi_tickets <- grouped %>%
+  filter(ACCOUNT_TYPE == "Business") %>%
+  group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE,
+            sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD),
+            sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD),
+            sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD),
+            EVENT_NAME, EVENT_DATETIME, OPPONENT) %>%
+  distinct()
+
+# Group Tickets
+group_tickets <- grouped %>%
+  filter(ACCOUNT_TYPE == "Group") %>%
+  group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  summarise(ACCOUNT_KEY, SEASON_YEAR, ACCOUNT_TYPE,
+            sum(TICKET_SOLD), sum(FLEX_PLAN_TICKET_SOLD), sum(FULL_PLAN_TICKET_SOLD),
+            sum(FORTY_PLAN_TICKET_SOLD), sum(GROUP_TICKET_SOLD), sum(MINI_PLAN_TICKET_SOLD),
+            sum(SEASON_TICKET_SOLD), sum(SINGLE_TICKET_SOLD), sum(SIXPACK_PLAN_TICKET_SOLD),
+            EVENT_NAME, EVENT_DATETIME, OPPONENT) %>%
+  distinct()
+```
+
+###
 
 ```{r}
 library(dplyr)
@@ -230,10 +269,14 @@ custom_bucketed_summary_data <- indiv_tickets %>%
     total_games_attended == 7 ~ "07",
     total_games_attended == 8 ~ "08",
     total_games_attended == 9 ~ "09",
-    total_games_attended >= 10 & total_games_attended <= 13 ~ "10-13",
-    total_games_attended >= 14 & total_games_attended <= 20 ~ "14-20",
-    total_games_attended >= 21 & total_games_attended <= 40 ~ "21-40",
-    total_games_attended >= 41 & total_games_attended <= 80 ~ "41-80",
+    total_games_attended == 10 ~ "10",
+    total_games_attended >= 11 & total_games_attended <= 15 ~ "11-15",
+    total_games_attended >= 16 & total_games_attended <= 19 ~ "16-19",
+    total_games_attended == 20 ~ "20",
+    total_games_attended >= 21 & total_games_attended <= 39 ~ "21-39",
+    total_games_attended == 40 ~ "40",
+    total_games_attended >= 41 & total_games_attended <= 79 ~ "41-79",
+    total_games_attended == 80 ~ "80",
     total_games_attended > 80 ~ "81+"
   )) %>%
   group_by(SEASON_YEAR, game_bucket) %>%
@@ -258,14 +301,99 @@ ggplot(custom_bucketed_summary_data, aes(x = game_bucket, y = fans_count, fill =
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for better readability
 ```
 
+###
+
+```{r}
+library(dplyr)
+
+# Calculate the number of distinct games attended per fan
+games_attended <- indiv_tickets %>%
+  group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  summarise(distinct_games_attended = n_distinct(EVENT_NAME), .groups = 'drop') %>%
+  arrange(SEASON_YEAR, ACCOUNT_KEY)
+
+# View the results
+games_attended
+```
 
 
+```{r}
+library(ggplot2)
+
+# Create the graph for distinct games attended per year
+ggplot(games_attended, aes(x = distinct_games_attended, y = ..count.., fill = factor(SEASON_YEAR))) +
+  geom_bar(stat = "count") +
+  facet_wrap(~ SEASON_YEAR, ncol = 1) +
+  labs(title = "Games Attended by Fans Each Year",
+       x = "Games Attended",
+       y = "Number of Fans",
+       fill = "Season Year") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
+```
 
 
+```{r}
+library(dplyr)
 
+# Bin the games attended into specified categories
+binned_games <- games_attended %>%
+  mutate(game_bucket = case_when(
+    distinct_games_attended == 01 ~ "01",
+    distinct_games_attended == 02 ~ "02",
+    distinct_games_attended == 03 ~ "03",
+    distinct_games_attended == 04 ~ "04",
+    distinct_games_attended == 05 ~ "05",
+    distinct_games_attended == 06 ~ "06",
+    distinct_games_attended == 07 ~ "07",
+    distinct_games_attended == 08 ~ "08",
+    distinct_games_attended == 09 ~ "09",
+    distinct_games_attended == 10 ~ "10",
+    distinct_games_attended >= 11 & distinct_games_attended <= 20 ~ "11-20",
+    distinct_games_attended >= 21 & distinct_games_attended <= 40 ~ "21-40",
+    distinct_games_attended >= 41 & distinct_games_attended <= 80 ~ "41-80",
+    distinct_games_attended > 80 ~ "81+"
+  )) %>%
+  group_by(SEASON_YEAR, game_bucket) %>%
+  summarise(fans_count = n(), .groups = 'drop') %>%
+  arrange(SEASON_YEAR, game_bucket)
 
+# View the binned data
+binned_games
+```
 
+```{r}
+library(ggplot2)
 
+# Graph the binned data
+ggplot(binned_games, aes(x = game_bucket, y = fans_count, fill = factor(SEASON_YEAR))) +
+  geom_bar(stat = "identity") +
+  facet_wrap(~ SEASON_YEAR, ncol = 1) +
+  labs(title = "Games Attended by Fans in Custom Bins Each Year",
+       x = "Game Attendance Bins",
+       y = "Number of Fans",
+       fill = "Season Year") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for readability
+```
+
+```{r}
+library(dplyr)
+
+# Calculate total fans and distinct games for each season year
+average_fans_per_game <- indiv_tickets %>%
+  group_by(SEASON_YEAR, EVENT_NAME) %>%
+  summarise(fans_per_game = n_distinct(ACCOUNT_KEY), .groups = 'drop') %>%
+  group_by(SEASON_YEAR) %>%
+  summarise(
+    total_games = n(),                     # Total distinct games
+    total_fans = sum(fans_per_game),       # Total fans across all games
+    average_fans_per_game = mean(fans_per_game) # Average fans per game
+  )
+
+# View the results
+average_fans_per_game
+```
 
 
 
