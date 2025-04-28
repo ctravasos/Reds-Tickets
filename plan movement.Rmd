@@ -1,0 +1,368 @@
+---
+title: "Reds EDA"
+author: "Alaina Brady"
+date: "2025-04-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readxl)
+```
+
+Read in the data
+```{r}
+account_status <- read.csv("reds_wheelhouse_edw_nd_account_status.csv")
+buyer_types <- read_excel("reds_wheelhouse_edw_nd_buyer_types.xlsx")
+demographics <- read.csv("reds_wheelhouse_edw_nd_demographics.csv")
+example <- read.csv("reds_wheelhouse_edw_nd_example_account.csv")
+promotions <- read.csv("reds_wheelhouse_edw_nd_promotions.csv")
+ticket_sales <- read.csv("reds_wheelhouse_edw_nd_ticket_sales_2.csv")
+```
+
+
+Account status
+```{r}
+head(account_status)
+```
+
+```{r}
+account_status$FIRST_PURCHASE_DATE <- as.POSIXct(account_status$FIRST_PURCHASE_DATE, format= "%Y-%m-%d %H:%M:%S")
+account_status$LAST_MODIFIED_DATE <- as.POSIXct(account_status$LAST_MODIFIED_DATE, format = "%Y-%m-%d %H:%M:%S")
+account_status$CREATE_DATE <- as.POSIXct(account_status$CREATE_DATE, format = "%Y-%m-%d %H:%M:%S")
+```
+
+```{r}
+summary(account_status)
+```
+
+```{r}
+length(unique(account_status$ACCOUNT_KEY))
+```
+
+
+Demographics
+```{r}
+head(demographics)
+```
+
+```{r}
+#demographics$GENDER <- factor(demographics$GENDER, levels = c("Male", "Female"), labels = c(1, 2))
+demographics$MARITAL_STATUS <- factor(demographics$MARITAL_STATUS, levels = c("Single", "Married"), labels = c(1, 2))
+demographics$CHILDREN_IN_HH <- factor(demographics$CHILDREN_IN_HH, levels = c("N", "Y"), labels = c(0, 1))
+```
+
+
+```{r}
+summary(demographics)
+```
+
+Both
+```{r}
+consumer_info <- merge(account_status, demographics, by = "ACCOUNT_KEY")
+```
+
+```{r}
+head(consumer_info)
+```
+
+```{r}
+ggplot(consumer_info, aes(x = GENDER)) +
+  geom_bar(fill = "black") +
+  labs(title = "Gender Distribution", x = "Gender", y = "Count")
+```
+
+```{r}
+ggplot(consumer_info, aes(x = AGE)) +
+  geom_histogram(fill = "black") +
+  labs(title = "Age Distribtion")
+```
+
+```{r}
+consumer_info_clean <- consumer_info %>%
+  filter(!is.na(AGE) & !is.na(CHILDREN_IN_HH))
+
+ggplot(consumer_info_clean, aes(x = AGE)) +
+  geom_bar(aes(fill = CHILDREN_IN_HH), stat = "count") +
+  labs(title = "Bar Plot of Age Distribution by Children in Household",
+       x = "Age",
+       y = "Count") +
+  scale_fill_brewer(palette = "Set3")
+```
+
+```{r}
+ggplot(data = consumer_info, aes(x = AGE, y = TENURE)) +
+  geom_point()
+```
+
+
+
+Promotions
+```{r}
+head(promotions)
+```
+
+```{r}
+length(unique(promotions$CATEGORY))
+length(unique(promotions$CATEGORY_DETAIL))
+length(unique(promotions$PROMOTION))
+```
+
+
+
+Buyer_types
+```{r}
+head(buyer_types)
+```
+
+
+```{r}
+head(example)
+```
+
+
+
+customer movement
+```{r}
+library(tidyverse)
+library(lubridate)
+library(janitor)
+
+acct_year  <- read_csv("reds_wheelhouse_edw_nd_account_status.csv") %>% 
+  clean_names() %>% 
+  select(account_key, season_year, status)                     
+
+sales_long <- read_csv("reds_wheelhouse_edw_nd_ticket_sales_2.csv",
+                       col_types = cols(.default = "c")) %>%   
+  clean_names() %>% 
+  mutate(purchase_date = ymd_hms(purchase_date, tz = "UTC")) %>% 
+
+
+  pivot_longer(
+    cols = ends_with("_ticket_sold"),
+    names_to   = "plan_type_raw",
+    values_to  = "qty",
+    values_drop_na = TRUE
+  ) %>% 
+  mutate(
+    qty          = as.integer(qty),
+    plan_type    = str_remove(plan_type_raw, "_ticket_sold$") %>% 
+                   str_to_upper()                                     
+  ) %>% 
+  filter(qty > 0)                                                    
+```
+```{r}
+
+first_plan <- sales_long %>% 
+  mutate(
+    season_year   = as.integer(season_year),        
+    purchase_date = ymd_hms(purchase_date, tz = "UTC")
+  ) %>% 
+  arrange(account_key, season_year, purchase_date) %>% 
+  group_by(account_key, season_year) %>% 
+  slice_min(purchase_date, n = 1, with_ties = FALSE) %>% 
+  ungroup() %>% 
+  select(account_key, season_year, first_plan = plan_type)
+
+
+plan_shifts <- first_plan %>% 
+  arrange(account_key, season_year) %>% 
+  group_by(account_key) %>% 
+  mutate(
+    next_plan  = lead(first_plan),
+    next_year  = lead(season_year)
+  ) %>% 
+  ungroup() %>% 
+  filter(next_year == season_year + 1)
+
+```
+
+```{r}
+library(ggalluvial)
+
+ggplot(plan_shifts,
+       aes(x          = factor(season_year),
+           stratum    = first_plan,
+           alluvium   = account_key,
+           y          = 1,                         
+           fill       = first_plan)) +
+  geom_flow(alpha = .5) +
+  geom_stratum(width = .4) +
+  scale_x_discrete(expand = c(.04, .04)) +
+  labs(title = "Ticket-plan change across seasons",
+       x = "Season", y = "Accounts (relative)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+
+getting rid of season
+```{r}
+sales_long2 <- sales_long %>% 
+  filter(plan_type != "SEASON")       
+```
+
+```{r}
+
+first_plan <- sales_long2 %>% 
+  mutate(
+    season_year   = as.integer(season_year),        
+    purchase_date = ymd_hms(purchase_date, tz = "UTC")
+  ) %>% 
+  arrange(account_key, season_year, purchase_date) %>% 
+  group_by(account_key, season_year) %>% 
+  slice_min(purchase_date, n = 1, with_ties = FALSE) %>% 
+  ungroup() %>% 
+  select(account_key, season_year, first_plan = plan_type)
+
+
+plan_shifts <- first_plan %>% 
+  arrange(account_key, season_year) %>% 
+  group_by(account_key) %>% 
+  mutate(
+    next_plan  = lead(first_plan),
+    next_year  = lead(season_year)
+  ) %>% 
+  ungroup() %>% 
+  filter(next_year == season_year + 1)
+
+```
+
+```{r}
+library(ggalluvial)
+
+ggplot(plan_shifts,
+       aes(x          = factor(season_year),
+           stratum    = first_plan,
+           alluvium   = account_key,
+           y          = 1,                         
+           fill       = first_plan)) +
+  geom_flow(alpha = .5) +
+  geom_stratum(width = .4) +
+  scale_x_discrete(expand = c(.04, .04)) +
+  labs(title = "Ticket-plan change across seasons",
+       x = "Season", y = "Accounts (relative)") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+```
+
+
+without single and group
+```{r}
+sales_long3 <- sales_long2 %>% 
+ filter(!plan_type %in% c("SINGLE", "GROUP"))
+     
+```
+
+```{r}
+
+first_plan <- sales_long3 %>% 
+  mutate(
+    season_year   = as.integer(season_year),        
+    purchase_date = ymd_hms(purchase_date, tz = "UTC")
+  ) %>% 
+  arrange(account_key, season_year, purchase_date) %>% 
+  group_by(account_key, season_year) %>% 
+  slice_min(purchase_date, n = 1, with_ties = FALSE) %>% 
+  ungroup() %>% 
+  select(account_key, season_year, first_plan = plan_type)
+
+
+plan_shifts <- first_plan %>% 
+  arrange(account_key, season_year) %>% 
+  group_by(account_key) %>% 
+  mutate(
+    next_plan  = lead(first_plan),
+    next_year  = lead(season_year)
+  ) %>% 
+  ungroup() 
+
+```
+
+```{r}
+library(ggalluvial)
+
+ggplot(plan_shifts,
+       aes(x          = factor(season_year),
+           stratum    = first_plan,
+           alluvium   = account_key,
+           y          = 1,                         
+           fill       = first_plan)) +
+  geom_flow(alpha = .5) +
+  geom_stratum(width = .4) +
+  scale_x_discrete(expand = c(.04, .04)) +
+  labs(title = "Ticket-plan change across seasons",
+       x = "Season", y = "Accounts") +
+  theme_minimal() 
+```
+
+```{r}
+alluvial_dat <- first_plan %>%  
+  mutate(plan = first_plan)
+
+ggplot(alluvial_dat,
+       aes(x        = factor(season_year),
+           stratum  = plan,
+           alluvium = account_key,
+           y        = 1,
+           fill     = plan)) +
+  geom_flow(alpha = .6) +
+  geom_stratum(width = .4) +
+  scale_x_discrete(expand = c(.05, .05)) +
+  labs(title = "Ticket-plan paths 2022-2024",
+       x = "Season", y = "Accounts") +
+  theme_minimal()
+
+```
+
+only showing change in sanke
+```{r}
+changers <- plan_shifts %>% 
+  filter(first_plan != next_plan) %>%
+  distinct(account_key) %>% 
+  pull()
+
+
+alluvial_dat <- first_plan %>%                 
+  filter(account_key %in% changers)
+
+ggplot(alluvial_dat,
+       aes(x        = factor(season_year),
+           stratum  = first_plan,
+           alluvium = account_key,
+           y        = 1,
+           fill     = first_plan)) +
+  geom_flow(alpha = .6) +
+  geom_stratum(width = .4) +
+  labs(title = "Only accounts that changed ticket plans",
+       x = "Season", y = "Accounts") +
+  theme_minimal()
+
+```
+
+
+
+
+
+```{r}
+ggplot(yearly_changes, aes(plan, net)) +
+  geom_col(fill = 'red') +
+  coord_flip() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(title = "Net retention by ticket plan (flows 2022 → 2023 → 2024)",
+       x = NULL, y = "Net accounts (gains − losses)") +
+  theme_classic()
+
+```
+
+
+
+
