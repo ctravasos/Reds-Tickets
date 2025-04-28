@@ -148,9 +148,8 @@ pheatmap(
 
 
 ```
-ok try again but drop TICKET
+ok try again but drop TICKET and SEASON TICKET
 ```{r}
-
 library(dplyr)
 library(tidyr)
 library(vegan)
@@ -162,13 +161,15 @@ cohort_data <- read.csv("cohort_analysis.csv")
 
 basket_mat <- cohort_data %>% 
   pivot_longer(
-    cols            = starts_with("X"),
-    names_to        = "Year",
-    names_pattern   = "X(\\d{4})",
-    values_to       = "TicketsSold"
+    cols          = starts_with("X"),
+    names_to      = "Year",
+    names_pattern = "X(\\d{4})",
+    values_to     = "TicketsSold"
   ) %>% 
-  filter(TicketsSold > 0,
-         TicketType != "TICKET") %>%          
+  filter(
+    TicketsSold > 0,
+    !TicketType %in% c("TICKET", "SEASON_TICKET")   # <- CHANGE
+  ) %>% 
   unite(AccountSeason, ACCOUNT_KEY, Year, sep = "_") %>% 
   summarise(Flag = 1, .by = c(AccountSeason, TicketType)) %>% 
   pivot_wider(
@@ -198,7 +199,7 @@ pheatmap(
   color                    = viridis(100),
   display_numbers          = TRUE,
   number_format            = "%.0f",
-  main                     = "How often ticket plans are bought together (no TICKET)"
+  main                     = "How often ticket plans are bought by same account"
 )
 
 ## (optional) cluster labels:
