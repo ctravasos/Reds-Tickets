@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## Data
 ```{r}
 library(readxl)
+library(ggplot2)
 account_status <- read.csv('data/reds_wheelhouse_edw_nd_account_status.csv')
 buyer_types <- read_excel('data/reds_wheelhouse_edw_nd_buyer_types.xlsx')
 demographics <- read.csv('data/reds_wheelhouse_edw_nd_demographics.csv')
@@ -218,6 +219,7 @@ ticket_use_by_cust <- ticket_sales %>%
   summarise(perc_use = sum(SCAN_COUNT, na.rm = TRUE) / n(),
             total_count = n()) %>% arrange(desc(total_count)) %>% arrange(ACCOUNT_KEY, SEASON_YEAR )
 
+library(lubridate)
 #by customer ticket use
 ticket_use_by_month <- ticket_sales %>% filter(ACCOUNT_TYPE == "Individual") %>% 
   mutate(EVENT_MONTH = month(as.Date(EVENT_DATETIME))) %>%
@@ -373,7 +375,7 @@ churners <- account_last_seen %>%
 Churners with Demographics
 ```{r}
 churners_with_demo <- churners %>% ungroup() %>%
-  left_join(demographics, by = "ACCOUNT_KEY")
+  left_join(demographics, by = "ACCOUNT_KEY") %>% mutate(AGE = AGE - (2025-SEASON_YEAR))
 ```
 
 Churner Demo Breakdown
@@ -557,7 +559,25 @@ demo_comp_age <- churners_not_churners_with_demo %>%
     n = n()
   )
 
+churners_not_churners_with_demo %>% filter(GENDER == "Female") %>%
+  group_by(Churned, GENDER, AGE) %>% summarise(churn_gender = paste(Churned, GENDER, sep="_"), count= n()) %>% na.omit() %>% ggplot(aes(x = AGE, fill = Churned, alpha =0.5)) +
+  geom_density() +
+  labs(title = "Line Plot of Age vs. Churn Status",
+       subtitle = "Female",
+       x = "Age",
+       y = "Value", # Adjust y-axis label to match your data
+       color = "Churn Status") +
+  theme_minimal()
 
+churners_not_churners_with_demo %>% filter(GENDER == "Male") %>%
+  group_by(Churned, GENDER, AGE) %>% summarise(churn_gender = paste(Churned, GENDER, sep="_"), count= n()) %>% na.omit() %>% ggplot(aes(x = AGE, fill = Churned, alpha =0.5)) +
+  geom_density() +
+  labs(title = "Line Plot of Age vs. Churn Status",
+       subtitle = "Male",
+       x = "Age",
+       y = "Value", # Adjust y-axis label to match your data
+       color = "Churn Status") +
+  theme_minimal()
 
 ```
 
@@ -595,6 +615,13 @@ demo_comp_children <- churners_not_churners_with_demo %>%
   summarise(count = n()) %>%
   mutate(percent = count / sum(count) * 100) 
   
+ggplot(data = demo_comp_children, aes(x = Churned, y = percent, fill = CHILDREN_IN_HH)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Bar Plot of Marital Status with Kids vs. Percent",
+       x = "Churned",
+       y = "Percent",
+       fill = "Children in HH") +
+  theme_minimal()
 
 
 
@@ -612,7 +639,26 @@ demo_comp_number_children <- churners_not_churners_with_demo %>%
     median_kids = median(NUMBER_OF_CHILDREN, na.rm = TRUE)
   )
 
+
 print(demo_comp_number_children)
+
+churners_not_churners_with_demo %>% filter(GENDER == "Male") %>%
+  group_by(Churned, GENDER,NUMBER_OF_CHILDREN ) %>% summarise(churn_gender = paste(Churned, GENDER, sep="_"),) %>% na.omit() %>% ggplot(aes(x = NUMBER_OF_CHILDREN, fill = churn_gender, alpha =0.5)) +
+  geom_density() +
+  labs(title = "Line Plot of Children vs. Churn Status",
+       x = "Number of Children",
+       y = "Density", # Adjust y-axis label to match your data
+       color = "Churn Status") +
+  theme_minimal()
+
+churners_not_churners_with_demo %>% filter(GENDER == "Female") %>%
+  group_by(Churned, GENDER,NUMBER_OF_CHILDREN ) %>% summarise(churn_gender = paste(Churned, GENDER, sep="_"),) %>% na.omit() %>% ggplot(aes(x = NUMBER_OF_CHILDREN, fill = churn_gender, alpha =0.5)) +
+  geom_density() +
+  labs(title = "Line Plot of Children vs. Churn Status",
+       x = "Number of Children",
+       y = "Density", # Adjust y-axis label to match your data
+       color = "Churn Status") +
+  theme_minimal()
 ```
 
 
@@ -624,13 +670,20 @@ churners_not_churners_with_demo <- churners_not_churners_with_demo %>%
 Married with kids comp
 
 ```{r}
-churners_not_churners_with_demo %>%
+with_kids <- churners_not_churners_with_demo %>%
   filter(MARITAL_STATUS != "", CHILDREN_IN_HH != "") %>%
   group_by(Churned, Marital_Kids) %>%
   summarise(count = n()) %>%
   mutate(percent = count / sum(count) * 100) %>%
   arrange(Churned, desc(percent))
 
+ggplot(data = with_kids, aes(x = Churned, y = percent, fill = Marital_Kids)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Bar Plot of Marital Status with Kids vs. Percent",
+       x = "Churned",
+       y = "Percent",
+       fill = "Marital Status with Kids") +
+  theme_minimal()
 ```
 Churn vs Use    
 
