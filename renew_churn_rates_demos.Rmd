@@ -482,12 +482,16 @@ churn_model_df<- churn_model_df %>%
   mutate(across(where(is.character), fill_mode))
 
 labels <- churn_model_df$churned 
-churn_model_df <- churn_model_df %>% select(-churned)
+churn_model_df <- churn_model_df %>% select(-churned, -TICKET_SOLD, -SCAN_COUNT, -BUYER_TYPE_DESCRIPTION, 
+                                            -BUYER_TYPE_GROUP_DESCRIPTION, -all_of(ticket_cols))
 
 set.seed(123456789)
 train_index <- sample(1:nrow(churn_model_df), size = 0.8 * nrow(churn_model_df)) 
 train_data <- churn_model_df[train_index, ]
 test_data <- churn_model_df[-train_index, ]
+
+train_labels <- labels[train_index]
+test_labels <- labels[-train_index]
 
 # dummy encode
 train_sparse_features <- sparse.model.matrix(~ . - 1, data = train_data)
@@ -531,4 +535,15 @@ confusionMatrix(as.factor(pred_labels), as.factor(test_labels))
 importance_matrix <- xgb.importance(model = xgb_model)
 xgb.plot.importance(importance_matrix)
 ```
+
+```{r}
+library(pdp)
+
+pdp::partial(
+  object = xgb_model,     
+  pred.var = "NUMBER_OF_CHILDREN",  
+  train = train_sparse_features,    
+  plot = TRUE)
+```
+
 
