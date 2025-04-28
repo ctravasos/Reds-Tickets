@@ -1,0 +1,208 @@
+---
+title: "Cohort analysis"
+author: "Alaina Brady"
+date: "2025-04-27"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+cohort_data <- read.csv("cohort_analysis.csv")
+```
+
+```{r}
+head(cohort_data)
+```
+
+account types by cohort
+```{r}
+library(dplyr)
+library(ggplot2)
+
+cohort_data %>% 
+  filter(!ACCOUNT_TYPE %in% c("Internal", "Corporate Partnership")) %>%   
+  ggplot(aes(x = Cohort, fill = ACCOUNT_TYPE)) +
+  geom_bar() +
+  facet_wrap(~ ACCOUNT_TYPE, ncol = 4) +
+  labs(
+    title = "Accounts per Cohort by Account Type",
+    x     = "Cohort (first season year)",
+    y     = "Number of accounts",
+    fill  = "Account type"
+  ) +
+  theme_minimal()
+
+```
+
+ticket types by cohort
+```{r}
+library(dplyr)      # if you need to transform first
+library(ggplot2)
+library(scales)     # nice number + percent helpers
+
+# 0) (optional) reorder ticket types so the legend matches the stack order
+cohort_data <- cohort_data %>% 
+  mutate(
+    TicketType = factor(
+      TicketType,
+      levels = rev(sort(unique(TicketType)))  # or any ordering you prefer
+    )
+  )
+
+ggplot(cohort_data, aes(x = Cohort, fill = TicketType)) +
+  # 1) bars (geom_col for pre-summed data / geom_bar for raw rows)
+  geom_bar(width = .7, colour = "grey30", size = .2) +
+  
+  # 2) nicer palette (colour-blind friendly). 12-colour “Paired” works well
+  scale_fill_brewer(palette = "Paired") +
+  
+  # 3) tidy y-axis: comma separators at ‘000s
+  scale_y_continuous(labels = comma) +
+  
+  # 4) titles + caption
+  labs(
+    title    = "Accounts per Cohort, broken down by Ticket Type",
+    subtitle = "Each bar is all accounts that first bought in that season",
+    x        = "Cohort (first season year)",
+    y        = "Number of accounts",
+    fill     = "Ticket type"
+  ) +
+  
+  # 5) clean theme tweaks
+  theme_minimal(base_size = 14) +
+  theme(
+    panel.grid.major.x = element_blank(),    # remove vertical grid lines
+    panel.grid.minor   = element_blank(),
+    axis.title.x       = element_text(margin = margin(t = 8)),
+    axis.title.y       = element_text(margin = margin(r = 8)),
+    plot.title         = element_text(face = "bold", size = 18),
+    plot.subtitle      = element_text(size = 12, margin = margin(b = 10)),
+    legend.position    = "right",            # or "bottom"
+    legend.key.height  = unit(0.6, "cm")
+  )
+
+```
+
+clustering types commonly purchased by same people
+```{r}
+library(dplyr)       
+library(tidyr)      
+library(vegan)       
+library(ggplot2)     
+library(pheatmap)   
+library(viridis)     
+
+
+cohort_data <- read.csv("cohort_analysis.csv")  
+
+basket_mat <- cohort_data %>% 
+  pivot_longer(
+    cols           = starts_with("X"),         
+    names_to       = "Year",
+    names_pattern  = "X(\\d{4})",
+    values_to      = "TicketsSold"
+  ) %>% 
+  filter(TicketsSold > 0) %>%                   
+  unite(AccountSeason, ACCOUNT_KEY, Year, sep = "_") %>% 
+  group_by(AccountSeason, TicketType) %>% 
+  summarise(Flag = 1, .groups = "drop") %>%     
+  pivot_wider(
+    names_from   = TicketType,
+    values_from  = Flag,
+    values_fill  = 0
+  )
+
+
+mat_bin <- basket_mat %>% select(-AccountSeason) %>% as.matrix()
+
+
+dist_Tickets <- vegdist(t(mat_bin), method = "jaccard")      
+hc_tickets   <- hclust(dist_Tickets, method = "average")     
+
+
+plot(
+  hc_tickets,
+  main = "Ticket-type clusters (Jaccard distance)",
+  sub  = "",
+  xlab = "",
+  cex  = 0.9
+)
+
+
+cooccur_counts <- t(mat_bin) %*% mat_bin    
+diag(cooccur_counts) <- 0                   
+
+pheatmap(
+  cooccur_counts,
+  clustering_distance_rows = dist_Tickets,
+  clustering_distance_cols = dist_Tickets,
+  clustering_method        = "average",
+  color                    = viridis(100),
+  display_numbers          = TRUE,
+  number_format            = "%.0f",
+  main                     = "How often ticket plans are bought together"
+)
+
+
+```
+ok try again but drop TICKET
+```{r}
+
+library(dplyr)
+library(tidyr)
+library(vegan)
+library(pheatmap)
+library(viridis)
+
+cohort_data <- read.csv("cohort_analysis.csv")
+
+
+basket_mat <- cohort_data %>% 
+  pivot_longer(
+    cols            = starts_with("X"),
+    names_to        = "Year",
+    names_pattern   = "X(\\d{4})",
+    values_to       = "TicketsSold"
+  ) %>% 
+  filter(TicketsSold > 0,
+         TicketType != "TICKET") %>%          
+  unite(AccountSeason, ACCOUNT_KEY, Year, sep = "_") %>% 
+  summarise(Flag = 1, .by = c(AccountSeason, TicketType)) %>% 
+  pivot_wider(
+    names_from   = TicketType,
+    values_from  = Flag,
+    values_fill  = 0
+  )
+
+mat_bin <- basket_mat %>% select(-AccountSeason) %>% as.matrix()
+
+
+dist_T <- vegdist(t(mat_bin), method = "jaccard")
+hc_T   <- hclust(dist_T, method = "average")
+
+plot(hc_T,
+     main = "Ticket-type clusters (Jaccard distance) – TICKET removed",
+     sub  = "", xlab = "", cex = 0.9)
+
+co_cnt <- t(mat_bin) %*% mat_bin
+diag(co_cnt) <- 0
+
+pheatmap(
+  co_cnt,
+  clustering_distance_rows = dist_T,
+  clustering_distance_cols = dist_T,
+  clustering_method        = "average",
+  color                    = viridis(100),
+  display_numbers          = TRUE,
+  number_format            = "%.0f",
+  main                     = "How often ticket plans are bought together (no TICKET)"
+)
+
+## (optional) cluster labels:
+# cutree(hc_T, k = 3)
+
+```
+
