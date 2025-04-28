@@ -704,7 +704,10 @@ demo_comp_use <- churners_not_churners_with_demo %>%
     n = n()
   )
 
-ggplot() + geom_density(data = churners_not_churners_with_demo %>% filter(total_count > 20), aes(fill = factor(Churned), alpha = 0.5, x = perc_use)) + labs(title = "Density Plot of Percentage Ticket Use in Churn Year")
+ggplot(data = churners_not_churners_with_demo %>% filter(total_count > 20)) + geom_density(aes(fill = Churned, alpha = 0.5, x = perc_use)) + 
+  labs(title = "Density Plot of Percentage Ticket Use in Churn Year", y = "Density", x = " Percentage Use") + 
+  geom_vline(xintercept = 0.54, linetype = "dashed" ) + 
+  annotate("text", x =0.50, y = 2, label = "0.54")
 ```
 
 ```{r}
