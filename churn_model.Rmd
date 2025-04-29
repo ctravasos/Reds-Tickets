@@ -1,0 +1,349 @@
+---
+title: "Renewal/Churn Rates & Predicting Churn"
+author: "Sarah Deussing"
+date: "2025-04-25"
+output: html_document
+---
+
+## Data
+```{r}
+library(readxl)
+account_status <- read.csv('data/reds_wheelhouse_edw_nd_account_status.csv')
+buyer_types <- read_excel('data/reds_wheelhouse_edw_nd_buyer_types.xlsx')
+demographics <- read.csv('data/reds_wheelhouse_edw_nd_demographics.csv')
+promotions <- read.csv('data/reds_wheelhouse_edw_nd_promotions.csv')
+ticket_sales <- read.csv('data/reds_wheelhouse_edw_nd_ticket_sales_3.csv')
+buyer_behavior = read.csv("sum_tickets.csv") # from buyer_behavior.Rmd
+```
+
+
+## Renewal & Churn Rates
+What are the renewal and churn rates? What can you tell us about when people decide not to renew?
+
+List of account keys that churned and what year (the last year they appeared)
+```{r}
+ticket_sales$GENERAL_BUYER_CODE <- substr(ticket_sales$BUYER_TYPE_CODE, 1, 3)
+```
+
+Churners dataframe
+```{r}
+library(dplyr)
+ppl_unique <- ticket_sales %>% distinct(SEASON_YEAR, ACCOUNT_KEY) %>% arrange(ACCOUNT_KEY, SEASON_YEAR)
+
+accounts <- unique(ppl_unique$ACCOUNT_KEY)
+years <- c(2021, 2022, 2023, 2024)
+
+churners <- data.frame()
+for (a in accounts) {
+  temp <- ppl_unique %>% filter(ACCOUNT_KEY == a)
+  active_years <- sort(temp$SEASON_YEAR)
+  
+  for (y in active_years) {
+    if ((y + 1) %in% years && !(y + 1) %in% active_years) {
+      churners <- rbind(churners, data.frame(ACCOUNT_KEY = a, SEASON_YEAR = y))
+    }
+  }
+}
+```
+
+Churn rates (% of people that didn't come back the next year)
+```{r}
+churn_rates <- ppl_unique %>%
+  filter(SEASON_YEAR < 2024) %>%
+  left_join(churners %>% mutate(churned = 1),
+            by = c("ACCOUNT_KEY", "SEASON_YEAR")) %>%
+  group_by(SEASON_YEAR) %>%
+  summarise(
+    total_accounts = n(),
+    churned_accounts = sum(!is.na(churned)),
+    churn_rate = churned_accounts / total_accounts,
+    renewal_rate = 1 - churn_rate
+  )
+churn_rates
+```
+
+Demographics of People who churned each year
+```{r, message = FALSE}
+churners_demo <- merge(churners, demographics, by = "ACCOUNT_KEY")
+
+tickets_nums <- ticket_sales %>% select(where(is.numeric), -"HOME_GAME_NUMBER", -"HOMESTAND_NUMBER",
+                                        -"SEAT_NUMBER", -"SCAN_COUNT")
+tickets_chars <- ticket_sales %>% select("ACCOUNT_KEY", "SEASON_YEAR", where(~ !is.numeric(.)),
+                                         "HOME_GAME_NUMBER", "HOMESTAND_NUMBER",
+                                        "SEAT_NUMBER", "SCAN_COUNT")
+
+tickets_nums <- tickets_nums %>% group_by(ACCOUNT_KEY, SEASON_YEAR) %>% 
+  summarize(TICKET_SOLD = sum(TICKET_SOLD), FLEX_PLAN_TICKET_SOLD = sum(FLEX_PLAN_TICKET_SOLD), 
+            FORTY_PLAN_TICKET_SOLD = sum(FORTY_PLAN_TICKET_SOLD), FULL_PLAN_TICKET_SOLD = sum(FULL_PLAN_TICKET_SOLD),
+            GROUP_TICKET_SOLD = sum(GROUP_TICKET_SOLD), MINI_PLAN_TICKET_SOLD = sum(MINI_PLAN_TICKET_SOLD),
+            SEASON_TICKET_SOLD = sum(SEASON_TICKET_SOLD), SINGLE_TICKET_SOLD = sum(SINGLE_TICKET_SOLD),
+            SIXPACK_PLAN_TICKET_SOLD = sum(SIXPACK_PLAN_TICKET_SOLD))
+
+tickets_chars <- tickets_chars %>%
+  group_by(ACCOUNT_KEY, SEASON_YEAR) %>%
+  summarise(across(
+    .cols = everything(), 
+    .fns = ~ paste(unique(.), collapse = ", "),
+    .names = "{.col}"), .groups = "drop")
+```
+
+```{r}
+churners_demo <- merge(churners_demo, tickets_chars, by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+churners_demo <- merge(churners_demo, tickets_nums, by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+```
+
+Adjust age (this is their age in 2024)
+```{r}
+churners_demo <- churners_demo %>%
+  mutate(AGE = ifelse(!is.na(AGE), AGE - (2024 - SEASON_YEAR), NA))
+```
+
+
+Get top 3 most common things / averages / sums for churners that year
+```{r}
+get_modes_str <- function(x) {
+  x_unlisted <- unlist(x)
+  x_filtered <- x_unlisted[!x_unlisted %in% c("Unknown", "")]
+  freq_table <- sort(table(x_filtered), decreasing = TRUE)
+  top <- names(freq_table)[1:min(3, length(freq_table))]
+  paste(top, collapse = ", ")
+}
+
+churners_demo_modes <- churners_demo %>%
+  group_by(SEASON_YEAR) %>%
+  summarise(AVG_AGE = mean(AGE, na.rm = TRUE),
+            across(
+    .cols = c(GENDER, MARITAL_STATUS, INCOME_MIDPOINT, CHILDREN_IN_HH, NUMBER_OF_CHILDREN, 
+              BUYER_TYPE_CODE, BUYER_TYPE_DESCRIPTION, BUYER_TYPE_GROUP_CODE, BUYER_TYPE_GROUP_DESCRIPTION,
+              GENERAL_BUYER_CODE, OPPONENT, ACCOUNT_TYPE, CITY, STATE, ZIP_CODE, PRICE_SCALE_DESCRIPTION, 
+              SEAT_SECTION, SEAT_ROW),
+    .fns = ~ get_modes_str(.),
+    .names = "{.col}_top3"),
+    nTICKET_SOLD = sum(TICKET_SOLD),
+    nFLEX_PLAN_TICKET_SOLD = sum(FLEX_PLAN_TICKET_SOLD),
+    nFORTY_PLAN_TICKET_SOLD = sum(FORTY_PLAN_TICKET_SOLD),
+    nSEASON_TICKET_SOLD = sum(SEASON_TICKET_SOLD),
+    nMINI_PLAN_TICKET_SOLD = sum(MINI_PLAN_TICKET_SOLD),
+    nSINGLE_TICKET_SOLD = sum(SINGLE_TICKET_SOLD),
+    nGROUP_TICKET_SOLD = sum(GROUP_TICKET_SOLD),
+    nSIXPACK_PLAN_TICKET_SOLD = sum(SIXPACK_PLAN_TICKET_SOLD))
+churners_demo_modes
+```
+
+#### Split by account type
+```{r}
+churners_demo %>% group_by(ACCOUNT_TYPE, SEASON_YEAR) %>%
+  summarise(AVG_AGE = mean(AGE, na.rm = TRUE),
+            across(
+    .cols = c(GENDER, MARITAL_STATUS, INCOME_MIDPOINT, CHILDREN_IN_HH, NUMBER_OF_CHILDREN, 
+              BUYER_TYPE_CODE, BUYER_TYPE_DESCRIPTION, BUYER_TYPE_GROUP_CODE, BUYER_TYPE_GROUP_DESCRIPTION,
+              GENERAL_BUYER_CODE, OPPONENT, CITY, STATE, ZIP_CODE, PRICE_SCALE_DESCRIPTION, 
+              SEAT_SECTION, SEAT_ROW),
+    .fns = ~ get_modes_str(.),
+    .names = "{.col}_top3"),
+    nTICKET_SOLD = sum(TICKET_SOLD),
+    nFLEX_PLAN_TICKET_SOLD = sum(FLEX_PLAN_TICKET_SOLD),
+    nFORTY_PLAN_TICKET_SOLD = sum(FORTY_PLAN_TICKET_SOLD),
+    nSEASON_TICKET_SOLD = sum(SEASON_TICKET_SOLD),
+    nMINI_PLAN_TICKET_SOLD = sum(MINI_PLAN_TICKET_SOLD),
+    nSINGLE_TICKET_SOLD = sum(SINGLE_TICKET_SOLD),
+    nGROUP_TICKET_SOLD = sum(GROUP_TICKET_SOLD),
+    nSIXPACK_PLAN_TICKET_SOLD = sum(SIXPACK_PLAN_TICKET_SOLD))
+  
+```
+
+Churn rates by account type
+```{r}
+library(ggplot2)
+churn_rates_by_type <- ppl_unique %>%
+  filter(SEASON_YEAR < 2024) %>%
+  left_join(churners %>% mutate(churned = 1),
+            by = c("ACCOUNT_KEY", "SEASON_YEAR")) %>%
+  left_join(ticket_sales %>% select('ACCOUNT_KEY', 'SEASON_YEAR', 'ACCOUNT_TYPE'),
+            by =  c("ACCOUNT_KEY", "SEASON_YEAR")) %>%
+  group_by(ACCOUNT_TYPE, SEASON_YEAR) %>%
+  summarise(
+    total_accounts = n(),
+    churned_accounts = sum(!is.na(churned)),
+    churn_rate = churned_accounts / total_accounts,
+    renewal_rate = 1 - churn_rate
+  )
+
+ggplot(churn_rates_by_type, aes(x = SEASON_YEAR, y = churn_rate, color = ACCOUNT_TYPE)) + 
+  geom_point() + geom_line() + ggtitle("Churn Rate by Account Type") + theme_minimal()
+```
+
+#### Churn by plan sold
+Make binary churn variable
+```{r}
+sum_cols <- grep("^sum\\.", names(buyer_behavior), value = TRUE)
+
+for (col in sum_cols) {
+  name <- gsub("^sum\\.|\\.$", "", col)
+  new_col <- paste0(name, "_binary")
+  buyer_behavior[[new_col]] <- as.integer(buyer_behavior[[col]] > 0)
+}
+```
+
+Pivot by plan type
+```{r}
+library(tidyr)
+binary_cols <- grep("_binary$", names(buyer_behavior), value = TRUE)
+
+buyer_long <- buyer_behavior %>%
+  pivot_longer(cols = all_of(binary_cols), 
+               names_to = "plan_type", 
+               values_to = "sold_flag") %>% select(ACCOUNT_TYPE, SEASON_YEAR, ACCOUNT_KEY, plan_type, sold_flag) %>%
+  filter(sold_flag == 1)
+
+buyer_long$plan_type <- gsub("_binary$", "", buyer_long$plan_type)
+```
+
+Churn rate by plan
+```{r, message = FALSE}
+churn_rates_by_pack <- ppl_unique %>%
+  filter(SEASON_YEAR < 2024) %>%
+  left_join(churners %>% mutate(churned = 1),
+            by = c("ACCOUNT_KEY", "SEASON_YEAR")) %>%
+  left_join(buyer_long %>% select('ACCOUNT_KEY', 'SEASON_YEAR', 'plan_type'),
+            by =  c("ACCOUNT_KEY", "SEASON_YEAR")) %>%
+  group_by(plan_type, SEASON_YEAR) %>%
+  summarise(
+    total_accounts = n(),
+    churned_accounts = sum(!is.na(churned)),
+    churn_rate = churned_accounts / total_accounts,
+    renewal_rate = 1 - churn_rate
+  ) %>% filter(!is.na(plan_type))
+
+ggplot(churn_rates_by_pack %>% filter(plan_type != "TICKET_SOLD", plan_type != "SINGLE_TICKET_SOLD",
+                                      plan_type != "SEASON_TICKET_SOLD", plan_type != "MINI_PLAN_TICKET_SOLD"), 
+       aes(x = SEASON_YEAR, y = churn_rate, color = plan_type)) + 
+  geom_point() + geom_line() + ggtitle("Churn Rate by Plan") + theme_minimal() +
+  scale_x_continuous(breaks = seq(min(churn_rates_by_pack$SEASON_YEAR), max(churn_rates_by_pack$SEASON_YEAR), 
+                                  by = 1))
+
+ggplot(churn_rates_by_pack %>% filter(plan_type != "TICKET_SOLD", plan_type != "SINGLE_TICKET_SOLD",
+                                      plan_type != "SEASON_TICKET_SOLD", plan_type != "MINI_PLAN_TICKET_SOLD"), 
+       aes(x = SEASON_YEAR, y = renewal_rate, color = plan_type)) + 
+  geom_point() + geom_line() + ggtitle("Renewal Rate by Plan") + theme_minimal() +
+  scale_x_continuous(breaks = seq(min(churn_rates_by_pack$SEASON_YEAR), max(churn_rates_by_pack$SEASON_YEAR), 
+                                  by = 1))
+```
+
+Demographics
+```{r}
+#churners_demo2 <- merge(churners_demo, buyer_long, by = c("ACCOUNT_TYPE", "SEASON_YEAR"))
+library(data.table)
+
+setDT(churners_demo)
+setDT(buyer_long)
+
+churners_demo2 <- buyer_long[churners_demo, on = .(ACCOUNT_TYPE, SEASON_YEAR), allow.cartesian = TRUE]
+```
+
+```{r, warning = FALSE}
+churners_demo2 %>% group_by(plan_type, SEASON_YEAR) %>%
+  summarise(AVG_AGE = mean(AGE, na.rm = TRUE),
+             AVG_NUMBER_OF_CHILDREN = mean(NUMBER_OF_CHILDREN, na.rm = TRUE),
+            AVG_INCOME_MIDPOINT = mean(INCOME_MIDPOINT, na.rm = TRUE),
+            AVG_SEAT_SECTION = mean(as.numeric(SEAT_SECTION), na.rm = TRUE),
+            across(
+    .cols = c(GENDER, MARITAL_STATUS,CHILDREN_IN_HH, BUYER_TYPE_CODE, BUYER_TYPE_DESCRIPTION,
+              GENERAL_BUYER_CODE, CITY, STATE, ZIP_CODE, PRICE_SCALE_DESCRIPTION, SEAT_ROW),
+    .fns = ~ get_modes_str(.),
+    .names = "{.col}_top3"))
+```
+
+## Modeling: Predicting Churn
+```{r}
+churners_bin <- ppl_unique %>%
+  left_join(churners %>% mutate(churned = 1),
+            by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+
+churners_bin <- churners_bin %>%
+  mutate(churned = ifelse(is.na(churned), 0, churned))
+```
+
+```{r}
+churners_bin_demo <- merge(churners_bin, demographics, by = "ACCOUNT_KEY")
+churners_bin_demo <- merge(churners_bin_demo, tickets_chars, by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+churners_bin_demo <- merge(churners_bin_demo, tickets_nums, by = c("ACCOUNT_KEY", "SEASON_YEAR"))
+
+churners_bin_demo <- churners_bin_demo %>%
+  mutate(AGE = ifelse(!is.na(AGE), AGE - (2024 - SEASON_YEAR), NA))
+```
+
+XGBoost
+```{r}
+library(Matrix)
+library(xgboost)
+
+churn_model_df <- churners_bin_demo %>%
+  select(-ACCOUNT_KEY, -SEASON_YEAR) 
+
+churn_model_df <- churn_model_df %>%
+  mutate(across(where(is.numeric), ~ ifelse(is.na(.), mean(., na.rm = TRUE), .)))
+
+fill_mode <- function(x) {
+  Mode <- as.character(sort(table(x), decreasing = TRUE)[1])
+  return(ifelse(is.na(x), Mode, x))
+}
+
+churn_model_df<- churn_model_df %>%
+  mutate(across(where(is.factor), fill_mode)) %>%
+  mutate(across(where(is.character), fill_mode))
+
+labels <- churn_model_df$churned 
+churn_model_df <- churn_model_df %>% select(-churned, -TICKET_SOLD, -SCAN_COUNT, -BUYER_TYPE_DESCRIPTION, 
+                                            -BUYER_TYPE_GROUP_DESCRIPTION)
+
+set.seed(123456789)
+train_index <- sample(1:nrow(churn_model_df), size = 0.8 * nrow(churn_model_df)) 
+train_data <- churn_model_df[train_index, ]
+test_data <- churn_model_df[-train_index, ]
+
+train_labels <- labels[train_index]
+test_labels <- labels[-train_index]
+
+# dummy encode
+train_sparse_features <- sparse.model.matrix(~ . - 1, data = train_data)
+test_sparse_features <- sparse.model.matrix(~ . - 1, data = test_data)
+
+common_features <- intersect(colnames(train_sparse_features), colnames(test_sparse_features))
+
+train_sparse_features <- train_sparse_features[, common_features, drop = FALSE]
+test_sparse_features <- test_sparse_features[, common_features, drop = FALSE]
+
+dtrain <- xgb.DMatrix(data = train_sparse_features, label = train_labels)
+dtest <- xgb.DMatrix(data = test_sparse_features, label = test_labels)
+```
+
+```{r}
+params <- list(
+  objective = "binary:logistic", 
+  eval_metric = "logloss",     
+  eta = 0.1)
+
+
+xgb_model <- xgb.train(
+  params = params,
+  data = dtrain,
+  nrounds = 500, 
+  early_stopping_rounds = 10,
+  watchlist = list(train = dtrain, eval = dtest))
+```
+
+```{r}
+library(caret) 
+
+pred <- predict(xgb_model, newdata = dtest)
+
+pred_labels <- ifelse(pred > 0.5, 1, 0)
+
+confusionMatrix(as.factor(pred_labels), as.factor(test_labels))
+```
+
+```{r}
+importance_matrix <- xgb.importance(model = xgb_model)
+xgb.plot.importance(importance_matrix)
+```
