@@ -409,7 +409,7 @@ churners_with_demo %>%
       right = TRUE
     )
   ) %>%
-  count(AGE_GROUP) %>%
+  count(AGE_GROUP) %>% na.omit() %>%
   ggplot(aes(x = AGE_GROUP, y = n, fill = AGE_GROUP)) +
   geom_bar(stat = "identity") +
   labs(title = "Age Group Distribution of Churners", x = "Age Group", y = "Count") +
@@ -567,7 +567,9 @@ churners_not_churners_with_demo %>% filter(GENDER == "Female") %>%
        x = "Age",
        y = "Value", # Adjust y-axis label to match your data
        color = "Churn Status") +
-  theme_minimal()
+  theme_minimal() +
+  geom_vline(xintercept = 53, linetype = "dashed" ) + 
+  annotate("text", x = 45, y = 0.01, label = "< 53 years")
 
 churners_not_churners_with_demo %>% filter(GENDER == "Male") %>%
   group_by(Churned, GENDER, AGE) %>% summarise(churn_gender = paste(Churned, GENDER, sep="_"), count= n()) %>% na.omit() %>% ggplot(aes(x = AGE, fill = Churned, alpha =0.5)) +
@@ -577,7 +579,10 @@ churners_not_churners_with_demo %>% filter(GENDER == "Male") %>%
        x = "Age",
        y = "Value", # Adjust y-axis label to match your data
        color = "Churn Status") +
-  theme_minimal()
+  theme_minimal()+ 
+  geom_vline(xintercept = 44, linetype = "dashed" ) + 
+  geom_vline(xintercept = 25, linetype = "dashed" ) + 
+  annotate("text", x = 35, y = 0.01, label = "25 - 44 years")
 
 ```
 
@@ -711,6 +716,26 @@ ggplot(data = churners_not_churners_with_demo %>% filter(total_count > 20)) + ge
 ```
 
 ```{r}
+churners_not_churners_with_demo %>%
+  filter(!is.na(AGE)) %>%
+  mutate(
+    AGE_GROUP = cut(
+      AGE,
+      breaks = c(17, 25, 35, 45, 55, 65, Inf),
+      labels = c("18–25", "26–35", "36–45", "46–55", "56–65", "66+"),
+      right = TRUE
+    )
+  ) %>%
+  count(AGE_GROUP, Churned) %>% na.omit() %>%
+  ggplot(aes(x = AGE_GROUP, y = n, fill = factor(Churned))) +
+  geom_bar(stat = "identity") +
+  labs(title = "Age Group Distribution of Churners", x = "Age Group", y = "Count") +
+  theme_minimal() 
+
+```
+
+
+```{r}
 demo_comp_seating <- churners_not_churners_with_demo  %>%
   group_by(Churned, OVERALL_PRICE_MODE) %>%
   summarize(
@@ -725,12 +750,18 @@ demo_comp_section <- churners_not_churners_with_demo  %>% filter(OVERALL_SECTION
   ) %>% ungroup(Churned) %>% mutate(perc = total_count/sum(total_count))
   
 
-ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = ACCOUNT_TYPE.x, position = "stacked", fill = Churned))
+ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = Churned, position = "stacked", fill = ACCOUNT_TYPE.x))
 
-ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = OVERALL_PRICE_MODE, position = "stacked", fill = Churned))
+ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = OVERALL_PRICE_MODE, position = "stacked", fill = Churned)) + theme(axis.text.x = element_text(angle = 90, hjust =1))
 
 ggplot() + geom_bar(data = churners_not_churners_with_demo %>% filter(OVERALL_SECTION_MODE %in% c('1', '2', '3', '4', '5')) %>% filter(ACCOUNT_TYPE.x == 'Individual'), aes(x = OVERALL_SECTION_MODE, position = "stacked", fill = Churned)) + labs(title = "Churn Rate by Seating Section")
 
 
+```
+```{r}
+churners_set = unique(c(churners_not_churners_with_demo[churners_not_churners_with_demo$Churned == TRUE, ]$ACCOUNT_KEY))
+seat_movement <- churners_not_churners_with_demo %>% filter(ACCOUNT_KEY %in% churners_set) %>% group_by(ACCOUNT_KEY) %>% arrange(ACCOUNT_KEY,SEASON_YEAR) %>% mutate(YearNo = rank(SEASON_YEAR), maxYear = max(YearNo)) %>% select(ACCOUNT_KEY, ACCOUNT_TYPE.x, perc_use, SEAT_SECTION_MODE, PRICE_SCALE_MODE, YearNo, maxYear) %>%  pivot_wider(id_cols = c(ACCOUNT_KEY, ACCOUNT_TYPE.x, maxYear), names_from = YearNo, values_from = c(perc_use,SEAT_SECTION_MODE,PRICE_SCALE_MODE))
+
+write.csv(seat_movement, "seat_movement.csv")
 ```
 
