@@ -4,6 +4,6 @@ renewal_analysis.Rmd - all exploratory work
 
 plan_movement_final.Rmd - plan movement and composition across years in R
 
-xgb.Rmd - churn xGBoost model
+churn_model.Rmd - churn xGBoost model
 
 CohortAnalysisFinal.twbx - cohort analysis in tableau
