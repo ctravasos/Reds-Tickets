@@ -18,7 +18,7 @@ buyer_types <- read_excel('data/reds_wheelhouse_edw_nd_buyer_types.xlsx')
 demographics <- read.csv('data/reds_wheelhouse_edw_nd_demographics.csv')
 promotions <- read.csv('data/reds_wheelhouse_edw_nd_promotions.csv')
 ticket_sales <- read.csv('data/reds_wheelhouse_edw_nd_ticket_sales_3.csv')
-buyer_behavior = read.csv("sum_tickets.csv") 
+buyer_behavior = read.csv("sum_tickets.csv") #created in BuyerBehavior Rmd
 ```
 
 ## Find tenured customers
@@ -167,11 +167,6 @@ location_behavior <- location_behavior %>%
   filter(!is.na(BUYER_TYPE_CODE) & !is.na(CITY) & !is.na(STATE)) %>%
   group_by(CITY, STATE, BUYER_TYPE_CODE) %>%
   summarise(Count = n(), .groups = 'drop')
-```
-
-Non-renewals
-```{r}
-
 ```
 
 
@@ -395,7 +390,7 @@ churners_with_demo %>%
   )
 ```
 
-Age distribution of churners
+Age distribution of churners (not relative to population)
 ```{r}
 library(ggplot2)
 
@@ -417,7 +412,7 @@ churners_with_demo %>%
   theme(legend.position = "none")
 
 ```
-Gender Breakdown of Churners
+Gender Breakdown of Churners (not relative to population)
 ```{r}
 churners_with_demo %>%
   filter(GENDER != "") %>%
@@ -750,7 +745,7 @@ demo_comp_section <- churners_not_churners_with_demo  %>% filter(OVERALL_SECTION
   ) %>% ungroup(Churned) %>% mutate(perc = total_count/sum(total_count))
   
 
-ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = Churned, position = "stacked", fill = ACCOUNT_TYPE.x))
+ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = Churned, position = "stacked", fill = ACCOUNT_TYPE.x))+ theme(axis.text.x = element_text(angle = 90, hjust =1))
 
 ggplot() + geom_bar(data = churners_not_churners_with_demo, aes(x = OVERALL_PRICE_MODE, position = "stacked", fill = Churned)) + theme(axis.text.x = element_text(angle = 90, hjust =1))
 
@@ -758,6 +753,8 @@ ggplot() + geom_bar(data = churners_not_churners_with_demo %>% filter(OVERALL_SE
 
 
 ```
+
+For SeatMovement Tableau
 ```{r}
 churners_set = unique(c(churners_not_churners_with_demo[churners_not_churners_with_demo$Churned == TRUE, ]$ACCOUNT_KEY))
 seat_movement <- churners_not_churners_with_demo %>% filter(ACCOUNT_KEY %in% churners_set) %>% group_by(ACCOUNT_KEY) %>% arrange(ACCOUNT_KEY,SEASON_YEAR) %>% mutate(YearNo = rank(SEASON_YEAR), maxYear = max(YearNo)) %>% select(ACCOUNT_KEY, ACCOUNT_TYPE.x, perc_use, SEAT_SECTION_MODE, PRICE_SCALE_MODE, YearNo, maxYear) %>%  pivot_wider(id_cols = c(ACCOUNT_KEY, ACCOUNT_TYPE.x, maxYear), names_from = YearNo, values_from = c(perc_use,SEAT_SECTION_MODE,PRICE_SCALE_MODE))
