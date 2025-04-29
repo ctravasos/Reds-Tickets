@@ -540,6 +540,38 @@ length(unique(churners_not_churners_with_demo$OVERALL_PRICE_MODE))
 print(churners_not_churners_with_demo)
 ```
 
+```{r}
+density_true <- density(churners_not_churners_with_demo$AGE[churners_not_churners_with_demo$Churned == TRUE], na.rm = TRUE)
+density_false <- density(churners_not_churners_with_demo$AGE[churners_not_churners_with_demo$Churned == FALSE], na.rm = TRUE)
+
+
+cross_points_indices <- which(diff(density_false$y > density_true$y) == 1)
+cross_points_ages <- density_false$x[cross_points_indices]
+
+
+valid_cross_points <- cross_points_ages[cross_points_ages >= 18 & cross_points_ages <= 80]
+
+
+final_cross_point <- max(valid_cross_points)
+
+
+ggplot(churners_not_churners_with_demo, aes(x = AGE, fill = Churned)) +
+  geom_density(alpha = 0.5) +
+  geom_vline(xintercept = final_cross_point, linetype = "dashed", color = "black", size = 1) +
+  scale_fill_manual(values = c("steelblue", "tomato")) +
+  scale_x_continuous(limits = c(18, 80)) +
+  labs(
+    title = "Age Density: Churned vs Non-Churned",
+    subtitle = paste0("Final crossover at Age ≈ ", round(final_cross_point, 1)),
+    x = "Age",
+    y = "Density",
+    fill = "Churned Status"
+  ) +
+  theme_minimal()
+```
+
+
+
 Age Comp
 
 ```{r}
@@ -608,26 +640,38 @@ print(demo_comp_income)
 
 Child in Household Comp
 
+
+
 ```{r}
-demo_comp_children <- churners_not_churners_with_demo %>%
-  group_by(Churned, CHILDREN_IN_HH) %>%
-  filter(CHILDREN_IN_HH != "" & !is.na(CHILDREN_IN_HH)) %>% 
-  summarise(count = n()) %>%
-  mutate(percent = count / sum(count) * 100) 
-  
-ggplot(data = demo_comp_children, aes(x = Churned, y = percent, fill = CHILDREN_IN_HH)) +
-  geom_bar(stat = "identity") +
-  labs(title = "Bar Plot of Marital Status with Kids vs. Percent",
-       x = "Churned",
-       y = "Percent",
-       fill = "Children in HH") +
-  theme_minimal()
+demo_comp_children %>%
+  ggplot(aes(x = CHILDREN_IN_HH, y = percent, fill = Churned)) +
+  geom_col(position = "fill", width = 0.6) +
+  geom_text(
+    aes(label = paste0(round(percent, 1), "%")),
+    position = position_fill(vjust = 0.5),
+    size = 4,
+    color = "white"
+  ) +
+  labs(
+    title = "Higher Churn Among Households With Children",
+    subtitle = "Churned customers (red) are a larger share among those with children",
+    x = "Children in Household (Y/N)",
+    y = "Share (%)",
+    fill = "Churn Status"
+  ) +
+  scale_fill_manual(values = c("FALSE" = "#1f77b4", "TRUE" = "#d62728")) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1)) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", size = 18),
+    plot.subtitle = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    axis.title.y = element_text(size = 14),
+    legend.position = "top"
+  )
 
 
-
-print(demo_comp_children)
 ```
-
 
 Number of Children Comp
 
